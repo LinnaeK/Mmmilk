@@ -1,4 +1,4 @@
-let Quote = require('../models/cart.js')
+let Quote = require('../models/chart.js')
 
 module.exports = {
     index,
@@ -9,7 +9,7 @@ module.exports = {
 
 async function create(req, res){
     try{
-        const { _id, data, countries, indicators, years, data } = req.body
+        const { _id, data, countries, indicators, years } = req.body
         newQuote = await new Quote({
             _id,
             data,
