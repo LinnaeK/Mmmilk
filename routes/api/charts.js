@@ -1,6 +1,6 @@
 let express = require('express')
 let router = express.Router()
-let chartsCtrl = require('../controllers/charts')
+let chartsCtrl = require('../../controllers/charts')
 
 router.get('/', chartsCtrl.index),
 router.get('/:id', chartsCtrl.show),
