@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import SelectComparison from '../SelectComparison/SelectComparison'
 import SelectCountry from '../SelectCountry/SelectCountry'
 import SelectAgeGroup from '../SelectAgeGroup/SelectAgeGroup'
+import Buttons from '../Buttons/Buttons'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -132,6 +133,7 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
         eZeroToFive={props.eZeroToFive}
         pZeroToFive={props.pZeroToFive}
         />
+        <Buttons handleResetClick={props.handleResetClick}/>
     </div>
   );
 

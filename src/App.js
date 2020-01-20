@@ -60,6 +60,19 @@ class App extends Component {
     }
   }
 
+  handleResetClick = () => {
+    this.setState({
+      age:[],
+      country:[],
+      isEnabled:true,
+      twelveToFifteen: false,
+      twelveToTwentyThree: false,
+      twentyToTwentyThree: false,
+      zeroToTwentyThree: false,
+      eZeroToFive: false,
+      pZeroToFive: false,
+    })
+  }
   // handleCountryClick = (e) => {
   //   e.persist()
   //   if(this.state.comparisonByItem==='Country'){
@@ -181,6 +194,7 @@ class App extends Component {
             countryMessage={this.state.countryMessage} 
             ageMessage={this.state.ageMessage} 
             isEnabled={this.state.isEnabled}
+            handleResetClick={this.handleResetClick}
             handleLogout={this.handleLogout} 
             handleRadioClick={this.handleRadioClick}
             handleCountryClick={this.handleCountryClick}
