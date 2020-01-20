@@ -33,46 +33,52 @@ export default function CheckboxesGroup(props) {
 
 //   const { twelveToFifteen, twelveToTwentyThree, twentyToTwentyThree, zeroToTwentyThree, eZeroToFive, pZeroToFive } = state; 
 //   const error = [gilad, jason, antoine].filter(v => v).length !== 2;
-
+    console.log('test', props.pZeroToFive, props.isEnabled)
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Select Age Range</FormLabel>
+        <FormLabel component="legend">Age Ranges</FormLabel>
         <FormGroup>
+        <FormHelperText>{props.ageMessage}</FormHelperText>
           <FormControlLabel
-            control={<Checkbox checked={props.eZeroToFive} onChange={props.handleChange('eZeroToFive')} value="eZeroToFive" onChange={props.handleAgeClick} />}
-            label="Exclusively breastfed 0-5 months" onClick={props.handleAgeClick}
+            disabled={!props.isEnabled&&!props.eZeroToFive}
+            control={<Checkbox checked={props.eZeroToFive} onChange={props.handleChange('eZeroToFive')} value="E0-5" onClick={props.handleAgeClick} />}
+            label="Exclusively breastfed 0-5 months"
           />
           <FormControlLabel
+            disabled={!props.isEnabled&&!props.pZeroToFive}
             control={<Checkbox checked={props.pZeroToFive} onChange={props.handleChange('pZeroToFive')} value="P0-5" onClick={props.handleAgeClick} />}
             label="Predonimantly breastfed 0-5 months"
           />
           <FormControlLabel
+            disabled={!props.isEnabled&&!props.twelveToFifteen}
             control={
               <Checkbox checked={props.twelveToFifteen} onChange={props.handleChange('twelveToFifteen')} value="12-15" onClick={props.handleAgeClick} />
             }
             label="12-15 months"
           />
           <FormControlLabel
+            disabled={!props.isEnabled&&!props.twelveToTwentyThree}
             control={
               <Checkbox checked={props.twelveToTwentyThree} onChange={props.handleChange('twelveToTwentyThree')} value="12-23" onClick={props.handleAgeClick} />
             }
             label="12-23 months"
           />
           <FormControlLabel
+            disabled={!props.isEnabled&&!props.twentyToTwentyThree}
             control={
               <Checkbox checked={props.twentyToTwentyThree} onChange={props.handleChange('twentyToTwentyThree')} value="20-23" onClick={props.handleAgeClick} />
             }
             label="20-23 months"
           />
           <FormControlLabel
+            disabled={!props.isEnabled&&!props.zeroToTwentyThree}
             control={
               <Checkbox checked={props.zeroToTwentyThree} onChange={props.handleChange('zeroToTwentyThree')} value="0-23" onClick={props.handleAgeClick} />
             }
             label="0-23 months"
           />
         </FormGroup>
-        <FormHelperText>{props.comparisonByItem === "Country" ? "Select up to three" : "Select One"}</FormHelperText>
       </FormControl>
     </div>
   );

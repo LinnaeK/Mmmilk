@@ -112,11 +112,16 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
       </List>
       <Divider />
       <SelectComparison user={props.user} handleRadioClick={props.handleRadioClick}/>
-      <SelectCountry handleCountryClick={props.handleCountryClick}/>
+      <SelectCountry 
+        handleCountryClick={props.handleCountryClick}
+        countryMessage={props.countryMessage}
+        />
       <SelectAgeGroup 
         handleAgeClick={props.handleAgeClick} 
         handleChange={props.handleChange}
         country={props.country} 
+        isEnabled={props.isEnabled}
+        ageMessage={props.ageMessage}
         twelveToFifteen={props.twelveToFifteen}
         twelveToTwentyThree={props.twelveToTwentyThree}
         twentyToTwentyThree={props.twentyToTwentyThree}

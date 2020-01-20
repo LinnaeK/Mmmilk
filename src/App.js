@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import Nav from './components/NavBar/NavBar'
-import './App.css';
-// import NavBar from './components/NavBar/NavBar';
-// import ResponsiveDrawer from './components/NavBar/ResponsiveDrawer';
+import './App.css'
 import LoginPage from './components/LoginPage/LoginPage'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import SignupPage from './pages/SignupPage/SignupPage';
@@ -16,7 +13,10 @@ class App extends Component {
       user: userService.getUser(),
       comparisonByItem: 'Country',
       country:[],
+      countryMessage: "(select one)",
       age:[],
+      isEnabled:true,
+      ageMessage:"(select up to three)",
       twelveToFifteen: false,
       twelveToTwentyThree: false,
       twentyToTwentyThree: false,
@@ -27,13 +27,19 @@ class App extends Component {
   }
 
   handleChange = name => event => {
-    this.setState({[name]: event.target.checked });
+      this.setState({[name]: event.target.checked });
   };
 
   handleRadioClick = (e) => {
     e.persist()
-    this.setState({country:[]})
-    this.setState({[e.target.name]:e.target.value})
+    this.setState({country:[e.target.value]})
+    if(e.target.value==="Country"){
+      this.setState({countryMessage: "(select one)"})
+      this.setState({ageMessage: "(select up to three)"})
+    }else{
+      this.setState({countryMessage: "(select up to three)"})
+      this.setState({ageMessage: "(select one)"})
+    }
   }
 
   handleCountryClick = (e) => {
@@ -48,16 +54,19 @@ class App extends Component {
         let filteredCountries = this.state.country.filter((country)=>{return country!=e.target.value})
         this.setState({country: filteredCountries})
       }else{
-        currentCountrySelection.push(e.target.value)
-        console.log(currentCountrySelection)
-        this.setState({country: currentCountrySelection})
+        if(currentCountrySelection.length>2){
+          this.setState({countryMessage: false})
+        }else{
+          currentCountrySelection.push(e.target.value)
+          console.log(currentCountrySelection)
+          this.setState({country: currentCountrySelection})
+        }
       }
     }
   }
 
   handleAgeClick = (e) => {
     e.persist()
-    console.log('handleageclick')
     if(this.state.comparisonByItem==='Age'){
       console.log('ran age')
       this.setState({age:[e.target.value]})
@@ -66,11 +75,27 @@ class App extends Component {
       let currentAgeSelection = [...this.state.age]
       if(this.state.age.some((age)=>{return e.target.value===age})){
         let filteredAge = this.state.age.filter((age)=>{return age!=e.target.value})
-        this.setState({age: filteredAge})
+        this.setState({
+          age: filteredAge,
+          isEnabled:true,
+        })
       }else{
-        currentAgeSelection.push(e.target.value)
-        console.log(currentAgeSelection)
-        this.setState({age: currentAgeSelection})
+        if(currentAgeSelection.length<2){
+          console.log('ran inside')
+          currentAgeSelection.push(e.target.value)
+          this.setState({
+            age: currentAgeSelection, 
+            isEnabled:true
+          })
+          console.log('almost out')
+        }else if(currentAgeSelection.length===2){
+          currentAgeSelection.push(e.target.value)
+          this.setState({
+            ageMessage: "Max three age ranges", 
+            isEnabled:false,
+            age: currentAgeSelection
+           })
+        }
       }
     }
   }
@@ -92,18 +117,21 @@ class App extends Component {
         <Switch>
           <Route exact path='/' render={() =>
           <ResponsiveDrawer 
-            user={this.state.user} 
+            user={this.state.user}
+            countryMessage={this.state.countryMessage} 
+            ageMessage={this.state.ageMessage} 
+            isEnabled={this.state.isEnabled}
             handleLogout={this.handleLogout} 
             handleRadioClick={this.handleRadioClick}
             handleCountryClick={this.handleCountryClick}
             handleAgeClick={this.handleAgeClick}
             handleChange={this.handleChange}
-            twelveToFifteen={this.twelveToFifteen}
-            twelveToTwentyThree={this.twelveToTwentyThree}
-            twentyToTwentyThree={this.twentyToTwentyThree}
-            zeroToTwentyThree={this.zeroToTwentyThree}
-            eZeroToFive={this.eZeroToFive}
-            pZeroToFive={this.pZeroToFive}
+            twelveToFifteen={this.state.twelveToFifteen}
+            twelveToTwentyThree={this.state.twelveToTwentyThree}
+            twentyToTwentyThree={this.state.twentyToTwentyThree}
+            zeroToTwentyThree={this.state.zeroToTwentyThree}
+            eZeroToFive={this.state.eZeroToFive}
+            pZeroToFive={this.state.pZeroToFive}
             />  
         }/>
         <Route exact path='/signup' render={({ history }) =>
