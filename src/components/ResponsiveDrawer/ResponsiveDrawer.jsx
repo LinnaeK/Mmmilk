@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar';
 import SelectComparison from '../SelectComparison/SelectComparison'
 import SelectCountry from '../SelectCountry/SelectCountry'
+import SelectAgeGroup from '../SelectAgeGroup/SelectAgeGroup'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -112,6 +113,17 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
       <Divider />
       <SelectComparison user={props.user} handleRadioClick={props.handleRadioClick}/>
       <SelectCountry handleCountryClick={props.handleCountryClick}/>
+      <SelectAgeGroup 
+        handleAgeClick={props.handleAgeClick} 
+        handleChange={props.handleChange}
+        country={props.country} 
+        twelveToFifteen={props.twelveToFifteen}
+        twelveToTwentyThree={props.twelveToTwentyThree}
+        twentyToTwentyThree={props.twentyToTwentyThree}
+        zeroToTwentyThree={props.zeroToTwentyThree}
+        eZeroToFive={props.eZeroToFive}
+        pZeroToFive={props.pZeroToFive}
+        />
     </div>
   );
 
@@ -132,7 +144,7 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Responsive drawer
+            Mmmilk
           </Typography>
         </Toolbar>
       </AppBar>

@@ -15,9 +15,20 @@ class App extends Component {
     this.state = {
       user: userService.getUser(),
       comparisonByItem: 'Country',
-      country:[]
+      country:[],
+      age:[],
+      twelveToFifteen: false,
+      twelveToTwentyThree: false,
+      twentyToTwentyThree: false,
+      zeroToTwentyThree: false,
+      eZeroToFive: false,
+      pZeroToFive: false,
     }
   }
+
+  handleChange = name => event => {
+    this.setState({[name]: event.target.checked });
+  };
 
   handleRadioClick = (e) => {
     e.persist()
@@ -44,6 +55,27 @@ class App extends Component {
     }
   }
 
+  handleAgeClick = (e) => {
+    e.persist()
+    console.log('handleageclick')
+    if(this.state.comparisonByItem==='Age'){
+      console.log('ran age')
+      this.setState({age:[e.target.value]})
+    }else{
+      console.log('ran this')
+      let currentAgeSelection = [...this.state.age]
+      if(this.state.age.some((age)=>{return e.target.value===age})){
+        let filteredAge = this.state.age.filter((age)=>{return age!=e.target.value})
+        this.setState({age: filteredAge})
+      }else{
+        currentAgeSelection.push(e.target.value)
+        console.log(currentAgeSelection)
+        this.setState({age: currentAgeSelection})
+      }
+    }
+  }
+
+
   
   handleSignupOrLogin = () => {
     this.setState({user: userService.getUser()});
@@ -64,6 +96,14 @@ class App extends Component {
             handleLogout={this.handleLogout} 
             handleRadioClick={this.handleRadioClick}
             handleCountryClick={this.handleCountryClick}
+            handleAgeClick={this.handleAgeClick}
+            handleChange={this.handleChange}
+            twelveToFifteen={this.twelveToFifteen}
+            twelveToTwentyThree={this.twelveToTwentyThree}
+            twentyToTwentyThree={this.twentyToTwentyThree}
+            zeroToTwentyThree={this.zeroToTwentyThree}
+            eZeroToFive={this.eZeroToFive}
+            pZeroToFive={this.pZeroToFive}
             />  
         }/>
         <Route exact path='/signup' render={({ history }) =>
