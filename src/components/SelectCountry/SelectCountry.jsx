@@ -94,16 +94,15 @@ SelectCountry.propTypes = {
             <Select
                 multiple
                 native
-                value={personName}
+                value={props.country}
                 name="country"
-                onChange={handleChangeMultiple}
-                // onClick={props.handleRadioClick}
+                onChange={props.handleChangeMultiple}
                 inputProps={{
                     id: 'select-multiple-native',
                 }}
                 >
                 {names.map(named => (
-                    <option key={named} value={named} name="country" onClick={props.handleCountryClick} >
+                    <option key={named} value={named}  name="country" onClick={props.handleCountryClick} >
                         {named}
                         </option>
                 ))}

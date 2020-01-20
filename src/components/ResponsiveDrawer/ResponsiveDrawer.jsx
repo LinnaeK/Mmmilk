@@ -115,6 +115,9 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
       <SelectCountry 
         handleCountryClick={props.handleCountryClick}
         countryMessage={props.countryMessage}
+        country={props.country}
+        multiple={props.multiple}
+        handleChangeMultiple={props.handleChangeMultiple}
         />
       <SelectAgeGroup 
         handleAgeClick={props.handleAgeClick} 

@@ -13,6 +13,7 @@ class App extends Component {
       user: userService.getUser(),
       comparisonByItem: 'Country',
       country:[],
+      multiple: false,
       countryMessage: "(select one)",
       age:[],
       isEnabled:true,
@@ -32,42 +33,59 @@ class App extends Component {
 
   handleRadioClick = (e) => {
     e.persist()
-    this.setState({comparisonByItem:[e.target.value]})
+    this.setState({
+      comparisonByItem:e.target.value,
+      age:[],
+      country:[],
+      isEnabled:true,
+      twelveToFifteen: false,
+      twelveToTwentyThree: false,
+      twentyToTwentyThree: false,
+      zeroToTwentyThree: false,
+      eZeroToFive: false,
+      pZeroToFive: false,
+    })
     if(e.target.value==="Country"){
-      this.setState({countryMessage: "(select one)"})
-      this.setState({ageMessage: "(select up to three)"})
+      this.setState({
+        countryMessage: "(select one)",
+        ageMessage: "(select up to three)",
+        multiple:false
+      })
     }else{
-      this.setState({countryMessage: "(select up to three)"})
-      this.setState({ageMessage: "(select one)"})
+      this.setState({
+          countryMessage: "(select up to three)",
+          ageMessage: "(select one)",
+          multiple:true 
+        })
     }
   }
 
-  handleCountryClick = (e) => {
-    e.persist()
-    if(this.state.comparisonByItem==='Country'){
-      console.log('ran country')
-      this.setState({country:[e.target.value]})
-    }else{
-      console.log('ran this')
-      let currentCountrySelection = [...this.state.country]
-      if(this.state.country.some((country)=>{return e.target.value===country})){
-        let filteredCountries = this.state.country.filter((country)=>{return country!=e.target.value})
-        this.setState({country: filteredCountries})
-      }else{
-        if(currentCountrySelection.length>2){
-          this.setState({countryMessage: false})
-        }else{
-          currentCountrySelection.push(e.target.value)
-          console.log(currentCountrySelection)
-          this.setState({country: currentCountrySelection})
-        }
-      }
-    }
-  }
+  // handleCountryClick = (e) => {
+  //   e.persist()
+  //   if(this.state.comparisonByItem==='Country'){
+  //     console.log('ran country')
+  //     this.setState({country:[e.target.value]})
+  //   }else{
+  //     console.log('ran this')
+  //     let currentCountrySelection = [...this.state.country]
+  //     if(this.state.country.some((country)=>{return e.target.value===country})){
+  //       let filteredCountries = this.state.country.filter((country)=>{return country!=e.target.value})
+  //       this.setState({country: filteredCountries})
+  //     }else{
+  //       if(currentCountrySelection.length>2){
+  //         this.setState({countryMessage: false})
+  //       }else{
+  //         currentCountrySelection.push(e.target.value)
+  //         console.log(currentCountrySelection)
+  //         this.setState({country: currentCountrySelection})
+  //       }
+  //     }
+  //   }
+  // }
 
   handleAgeClick = (e) => {
     e.persist()
-    if(this.state.comparisonByItem[0]==='Age'){
+    if(this.state.comparisonByItem==='Age'){
       console.log('run inside age')
       if(this.state.age.some((age)=>{return e.target.value===age})){
         let filteredAge = this.state.age.filter((age)=>{return age!=e.target.value})
@@ -113,6 +131,36 @@ class App extends Component {
   }
 
 
+  handleChangeMultiple = event => {
+    console.log('in handleChangeMultiple')
+    const value = [...this.state.country];
+    const { options } = event.target;
+    for (let i = 0, l = options.length; i < l; i += 1) {
+      if (options[i].selected) {
+        if(value.some((v)=>{return v===options[i].value })){
+          console.log('in some')
+          value.splice(value.indexOf(options[i].value), 1)
+          this.setState({country:value})
+        }else{
+          if(this.state.comparisonByItem==="Country"){
+            this.setState({
+              country:[options[i].value]
+            })
+          }else if(this.state.country.length<3){
+            value.push(options[i].value);
+            this.setState({
+              country: value
+            })
+            if(this.state.country.length===2){
+              this.setState({
+                countryMessage:"Max three countries"
+              })
+            }
+          }
+        }
+      }
+    }
+  };
   
   handleSignupOrLogin = () => {
     this.setState({user: userService.getUser()});
@@ -138,12 +186,15 @@ class App extends Component {
             handleCountryClick={this.handleCountryClick}
             handleAgeClick={this.handleAgeClick}
             handleChange={this.handleChange}
+            handleChangeMultiple={this.handleChangeMultiple}
             twelveToFifteen={this.state.twelveToFifteen}
             twelveToTwentyThree={this.state.twelveToTwentyThree}
             twentyToTwentyThree={this.state.twentyToTwentyThree}
             zeroToTwentyThree={this.state.zeroToTwentyThree}
             eZeroToFive={this.state.eZeroToFive}
             pZeroToFive={this.state.pZeroToFive}
+            multiple={this.state.multiple}
+            country={this.state.country}
             />  
         }/>
         <Route exact path='/signup' render={({ history }) =>
