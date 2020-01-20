@@ -70,8 +70,8 @@ export default function SelectCountry(props) {
     };
   
     const handleChangeMultiple = event => {
+      const value = [...personName];
       const { options } = event.target;
-      const value = [];
       for (let i = 0, l = options.length; i < l; i += 1) {
         if (options[i].selected) {
           value.push(options[i].value);

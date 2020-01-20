@@ -32,7 +32,7 @@ class App extends Component {
 
   handleRadioClick = (e) => {
     e.persist()
-    this.setState({country:[e.target.value]})
+    this.setState({comparisonByItem:[e.target.value]})
     if(e.target.value==="Country"){
       this.setState({countryMessage: "(select one)"})
       this.setState({ageMessage: "(select up to three)"})
@@ -67,9 +67,21 @@ class App extends Component {
 
   handleAgeClick = (e) => {
     e.persist()
-    if(this.state.comparisonByItem==='Age'){
+    if(this.state.comparisonByItem[0]==='Age'){
+      console.log('run inside age')
+      if(this.state.age.some((age)=>{return e.target.value===age})){
+        let filteredAge = this.state.age.filter((age)=>{return age!=e.target.value})
+        this.setState({
+          age: filteredAge,
+          isEnabled:true,
+        })
+      }else{
       console.log('ran age')
-      this.setState({age:[e.target.value]})
+      this.setState({
+        age:[e.target.value],
+        isEnabled:false
+      })
+    }
     }else{
       console.log('ran this')
       let currentAgeSelection = [...this.state.age]
