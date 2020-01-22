@@ -24,7 +24,7 @@ class SignupForm extends Component {
     try {
       await userService.signup(this.state);
       // Let <App> know a user has signed up!
-      this.props.handleSignup();
+      this.props.handleSignupOrLogin();
       // Successfully signed up - show GamePage
       this.props.history.push('/');
     } catch (err) {

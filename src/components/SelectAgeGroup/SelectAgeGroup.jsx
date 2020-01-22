@@ -22,7 +22,7 @@ export default function CheckboxesGroup(props) {
 //     twelveToFifteen: false,
 //     twelveToTwentyThree: false,
 //     twentyToTwentyThree: false,
-//     zeroToTwentyThree: false,
+//     everBF: false,
 //     eZeroToFive: false,
 //     pZeroToFive: false,
 //   });
@@ -31,7 +31,7 @@ export default function CheckboxesGroup(props) {
 //     setState({ ...state, [name]: event.target.checked });
 //   };
 
-//   const { twelveToFifteen, twelveToTwentyThree, twentyToTwentyThree, zeroToTwentyThree, eZeroToFive, pZeroToFive } = state; 
+//   const { twelveToFifteen, twelveToTwentyThree, twentyToTwentyThree, everBF, eZeroToFive, pZeroToFive } = state; 
 //   const error = [gilad, jason, antoine].filter(v => v).length !== 2;
     console.log('test', props.pZeroToFive, props.isEnabled)
   return (
@@ -42,41 +42,41 @@ export default function CheckboxesGroup(props) {
         <FormHelperText>{props.ageMessage}</FormHelperText>
           <FormControlLabel
             disabled={!props.isEnabled&&!props.eZeroToFive}
-            control={<Checkbox checked={props.eZeroToFive} onChange={props.handleChange('eZeroToFive')} value="E0-5" onClick={props.handleAgeClick} />}
+            control={<Checkbox checked={props.eZeroToFive} onChange={props.handleChange('eZeroToFive')} value="NT_BF_EXBF" onClick={props.handleAgeClick} />}
             label="Exclusively breastfed 0-5 months"
           />
           <FormControlLabel
             disabled={!props.isEnabled&&!props.pZeroToFive}
-            control={<Checkbox checked={props.pZeroToFive} onChange={props.handleChange('pZeroToFive')} value="P0-5" onClick={props.handleAgeClick} />}
+            control={<Checkbox checked={props.pZeroToFive} onChange={props.handleChange('pZeroToFive')} value="NT_BF_PRED_BF" onClick={props.handleAgeClick} />}
             label="Predonimantly breastfed 0-5 months"
           />
           <FormControlLabel
             disabled={!props.isEnabled&&!props.twelveToFifteen}
             control={
-              <Checkbox checked={props.twelveToFifteen} onChange={props.handleChange('twelveToFifteen')} value="12-15" onClick={props.handleAgeClick} />
+              <Checkbox checked={props.twelveToFifteen} onChange={props.handleChange('twelveToFifteen')} value="NT_BF_CBF_12_15" onClick={props.handleAgeClick} />
             }
             label="12-15 months"
           />
           <FormControlLabel
             disabled={!props.isEnabled&&!props.twelveToTwentyThree}
             control={
-              <Checkbox checked={props.twelveToTwentyThree} onChange={props.handleChange('twelveToTwentyThree')} value="12-23" onClick={props.handleAgeClick} />
+              <Checkbox checked={props.twelveToTwentyThree} onChange={props.handleChange('twelveToTwentyThree')} value="NT_BF_CBF_12_23" onClick={props.handleAgeClick} />
             }
             label="12-23 months"
           />
           <FormControlLabel
             disabled={!props.isEnabled&&!props.twentyToTwentyThree}
             control={
-              <Checkbox checked={props.twentyToTwentyThree} onChange={props.handleChange('twentyToTwentyThree')} value="20-23" onClick={props.handleAgeClick} />
+              <Checkbox checked={props.twentyToTwentyThree} onChange={props.handleChange('twentyToTwentyThree')} value="NT_BF_CBF_20_23" onClick={props.handleAgeClick} />
             }
             label="20-23 months"
           />
           <FormControlLabel
-            disabled={!props.isEnabled&&!props.zeroToTwentyThree}
+            disabled={!props.isEnabled&&!props.everBF}
             control={
-              <Checkbox checked={props.zeroToTwentyThree} onChange={props.handleChange('zeroToTwentyThree')} value="0-23" onClick={props.handleAgeClick} />
+              <Checkbox checked={props.everBF} onChange={props.handleChange('everBF')} value="NT_BF_EBF" onClick={props.handleAgeClick} />
             }
-            label="0-23 months"
+            label="Breastfed at least once"
           />
         </FormGroup>
       </FormControl>

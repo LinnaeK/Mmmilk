@@ -16,8 +16,9 @@ app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
 // Put API routes here, before the "catch all" route
-app.use('/api/users', require('./routes/api/users'));
 app.use(require('./config/auth'))
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/data', require('./routes/api/data'));
 app.use('/api/charts', require('./routes/api/charts'));
 
 // The following "catch all" route (note the *)is necessary

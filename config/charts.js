@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose")
 
-mongoose.connect(process.env.DATABASE_URL, {
+mongoose.connect('mongodb+srv://linnae:testing3@cluster0-vvyen.mongodb.net/mmmilk?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true

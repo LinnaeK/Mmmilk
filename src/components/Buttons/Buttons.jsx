@@ -22,6 +22,9 @@ export default function ButtonSizes(props) {
         <Button variant="contained" size="small" color="primary" className={classes.margin}>
             Save 
         </Button>
+        <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={props.handleChartClick}>
+            Create Chart 
+        </Button>
     </div>
     )
 }

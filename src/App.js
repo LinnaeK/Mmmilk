@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css'
 import LoginPage from './components/LoginPage/LoginPage'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import dataService from './utils/dataService'
 import SignupPage from './pages/SignupPage/SignupPage';
 import userService from './utils/userService';
 import ResponsiveDrawer from './components/ResponsiveDrawer/ResponsiveDrawer';
@@ -21,11 +22,13 @@ class App extends Component {
       twelveToFifteen: false,
       twelveToTwentyThree: false,
       twentyToTwentyThree: false,
-      zeroToTwentyThree: false,
+      everBF: false,
       eZeroToFive: false,
       pZeroToFive: false,
+      chartData: ''
     }
   }
+
 
   handleChange = name => event => {
       this.setState({[name]: event.target.checked });
@@ -41,7 +44,7 @@ class App extends Component {
       twelveToFifteen: false,
       twelveToTwentyThree: false,
       twentyToTwentyThree: false,
-      zeroToTwentyThree: false,
+      everBF: false,
       eZeroToFive: false,
       pZeroToFive: false,
     })
@@ -68,7 +71,7 @@ class App extends Component {
       twelveToFifteen: false,
       twelveToTwentyThree: false,
       twentyToTwentyThree: false,
-      zeroToTwentyThree: false,
+      everBF: false,
       eZeroToFive: false,
       pZeroToFive: false,
     })
@@ -138,6 +141,7 @@ class App extends Component {
             isEnabled:false,
             age: currentAgeSelection
            })
+           console.log(this.state.age)
         }
       }
     }
@@ -174,6 +178,18 @@ class App extends Component {
       }
     }
   };
+
+  handleChartData = (data) => {
+    this.setState({chartData:data})
+    console.log(this.state.chartData)
+  }
+
+  handleChartClick = async () => {
+    console.log('chart clicked')
+    let newData = await dataService.index(this.state.comparisonByItem, this.state.country, this.state.age)
+    this.handleChartData(newData)
+    console.log("set in state", this.state.chartData)
+  }
   
   handleSignupOrLogin = () => {
     this.setState({user: userService.getUser()});
@@ -199,16 +215,18 @@ class App extends Component {
             handleRadioClick={this.handleRadioClick}
             handleCountryClick={this.handleCountryClick}
             handleAgeClick={this.handleAgeClick}
+            handleChartClick={this.handleChartClick}
             handleChange={this.handleChange}
             handleChangeMultiple={this.handleChangeMultiple}
             twelveToFifteen={this.state.twelveToFifteen}
             twelveToTwentyThree={this.state.twelveToTwentyThree}
             twentyToTwentyThree={this.state.twentyToTwentyThree}
-            zeroToTwentyThree={this.state.zeroToTwentyThree}
+            everBF={this.state.everBF}
             eZeroToFive={this.state.eZeroToFive}
             pZeroToFive={this.state.pZeroToFive}
             multiple={this.state.multiple}
             country={this.state.country}
+            chartData={this.state.chartData}
             />  
         }/>
         <Route exact path='/signup' render={({ history }) =>
