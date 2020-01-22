@@ -21,7 +21,29 @@ module.exports = {
 //     {'NT_BF_CBF_20_23': '20-23' }
 //   ]
 
-async function getPerYear(comparisonCategory, comparison, subCat, yearAvgs){
+async function index(req, res){
+    try{
+        // console.log(indArr)
+        console.log(req.headers.country)
+        console.log(req.headers.comparisoncategory)
+        if(req.headers.comparisoncategory==="Country"){
+            let indArr = req.headers.indicators
+            indArr=indArr.split(",")
+            console.log("in if statement")
+            let response = await getData(req.headers.country, indArr)
+            console.log('I got me a: ', response)
+            res.json(response)
+        }else{
+            console.log("in the else statement!!")
+            // need to write this code
+        }
+    }catch(e){
+        console.log(e)
+        res.json(e)
+    }
+}
+
+async function getPerYear(comparison, subCat, yearAvgs){
     subCatData = await MilkData.find({REF_AREA:comparison,INDICATOR:subCat})
             let byYears= {}
             for(let i = 0; i<subCatData.length; i++){
@@ -42,7 +64,6 @@ async function getPerYear(comparisonCategory, comparison, subCat, yearAvgs){
                 yearAvgs[year][subCat]=byYears[year].obs_value/byYears[year].obs_times
                 yearAvgs[year]["year"]=year
             }
-            // console.log(yearAvgs)
     return yearAvgs
 }
 
@@ -54,19 +75,34 @@ function createArray (obj){
     return newArr
 }
 
-async function getData(comparisonCategory, comparison, subCats){
+async function getData(comparison, subCats){
     try{
-        if(comparisonCategory==="Country"){
-            subCat1 = await getPerYear(comparisonCategory, comparison, subCats[0], {})
-            subCat2 = await getPerYear(comparisonCategory, comparison, subCats[1], subCat1)
-            subCat3 = await getPerYear(comparisonCategory, comparison, subCats[2], subCat2)
+            subCat1 = await getPerYear(comparison, subCats[0], {})
+            subCat2 = await getPerYear(comparison, subCats[1], subCat1)
+            subCat3 = await getPerYear(comparison, subCats[2], subCat2)
             dataArray=createArray(subCat3)
+            console.log('got data array: ', dataArray)
             return dataArray
-        }
-    }catch(e){
+        }catch(e){
         console.log(e)
     }
 }
 
-getData("Country","NPL",['NT_BF_PRED_BF', 'NT_BF_EIBF', 'NT_BF_EXBF'])
- 
+//
+//
+//
+async function getCountries(){
+    console.log('ran getCountries')
+    try{
+        console.log('in try')
+        let countries = await MilkData.aggregate([{$group:{_id:"$REF_AREA"}}])
+        console.log(countries)
+        console.log('at end of getCountries')
+    }catch(e){
+        console.log('in error')
+        console.log(e)
+    }
+}
+console.log('ran data.js')
+
+getCountries()
