@@ -3,10 +3,10 @@ const Schema = mongoose.Schema
 
 const chartSchema = new Schema({
     user: String,
-    countries : [String],
-    years : Array,
-    indicators : Array,
-    data : Array
+    country : [String],
+    comparisonByItem : String,
+    indicators : [String],
 })
 
 module.exports = mongoose.model('Chart', chartSchema)
+

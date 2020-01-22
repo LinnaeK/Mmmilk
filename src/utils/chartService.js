@@ -17,7 +17,7 @@ function index() {
     return fetch(BASE_URL, options).then(res => res.json());
   }
   
-  function create(chart) {
+  function create(chartDetails) {
     const options = {
       method: 'POST',
       headers: {
@@ -25,7 +25,7 @@ function index() {
         // Add this header - don't forget the space after Bearer
         'Authorization': 'Bearer ' + tokenService.getToken()
       },
-      body: JSON.stringify(chart)
+      body: JSON.stringify(chartDetails)
     };
     return fetch(BASE_URL, options).then(res => res.json());
   }

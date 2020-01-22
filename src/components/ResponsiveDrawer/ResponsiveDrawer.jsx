@@ -137,6 +137,7 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
         <Buttons 
         handleChartClick={props.handleChartClick}
         handleResetClick={props.handleResetClick}
+        handleSaveClick={props.handleSaveClick}
         />
     </div>
   );

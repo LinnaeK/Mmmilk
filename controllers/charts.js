@@ -1,4 +1,4 @@
-let Quote = require('../models/chart.js')
+let Chart = require('../models/chart.js')
 
 module.exports = {
     index,
@@ -8,17 +8,17 @@ module.exports = {
 }
 
 async function create(req, res){
+    console.log('in create function')
+    console.log(req.body)
     try{
-        const { _id, data, countries, indicators, years } = req.body
-        newQuote = await new Quote({
-            _id,
-            data,
-            countries,
-            indicators, 
-            years, 
-            data
+        const { comparisonByItem, country, indicators } = req.body
+        newChart = await new Chart({
+            user: req.user,
+            comparisonByItem,
+            country,
+            indicators
         })
-        const saved = await Quote.save()
+        const saved = await  newChart.save()
         res.json(saved)
     }catch(e){
         console.log(e)

@@ -5,6 +5,8 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import dataService from './utils/dataService'
 import SignupPage from './pages/SignupPage/SignupPage';
 import userService from './utils/userService';
+import chartService from './utils/chartService';
+
 import ResponsiveDrawer from './components/ResponsiveDrawer/ResponsiveDrawer';
 
 class App extends Component {
@@ -190,6 +192,16 @@ class App extends Component {
     this.handleChartData(newData)
     console.log("set in state", this.state.chartData)
   }
+
+  handleSaveClick = async() => {
+    let chartDetails = {
+      comparisonByItem: this.state.comparisonByItem,
+      country: this.state.country,
+      indicators: this.state.age
+    }
+    let saveData = await chartService.create(chartDetails)
+    console.log('savedData: ', saveData)
+  }
   
   handleSignupOrLogin = () => {
     this.setState({user: userService.getUser()});
@@ -216,6 +228,7 @@ class App extends Component {
             handleCountryClick={this.handleCountryClick}
             handleAgeClick={this.handleAgeClick}
             handleChartClick={this.handleChartClick}
+            handleSaveClick={this.handleSaveClick}
             handleChange={this.handleChange}
             handleChangeMultiple={this.handleChangeMultiple}
             twelveToFifteen={this.state.twelveToFifteen}
