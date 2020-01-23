@@ -70,49 +70,29 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
 
   
     let nav = props.user ?
-    <div>
-        <Link to='./saved-charts' className='NavBar-link'>
-            <ListItem button key={'Saved Charts'}> 
-                <ListItemText primary={'Saved Charts'} />
-            </ListItem>
+    <span>
+        <span>{`Welcome, ${props.user.name}`} </span>
+        <Link to='/saved-charts' className='NavBar-link' onClick={props.handleLinkClick}>
+            {'Saved Charts'}
         </Link>
         <Link to = '' className='NavBar-link' onClick={props.handleLogout}>
-            <ListItem button key={'Log Out'}> 
-                <ListItemText primary={'Log Out'} />
-            </ListItem>
+            {'Log Out'}
         </Link>
-        <span className='NavBar-welcome'>
-        <ListItem button key={`Welcome, ${props.user.name}`}> 
-            <ListItemText primary={`Welcome, ${props.user.name}`} />
-        </ListItem>
-        </span>
-    </div>
+    </span>
     :
-    <div>
+    <span>
         <Link to='/login' className='NavBar-link'>
-        <ListItem button key={'Log In'}> 
-            <ListItemText primary={'Log In'} />
-        </ListItem>
+        {'Log In'}
         </Link>
         <Link to='/signup' className='NavBar-link'>
-            <ListItem button key={'Sign Up'}> 
-                <ListItemText primary={'Sign Up'} />
-            </ListItem>
+            {'Sign Up'}
         </Link>
-    </div>
+    </span>
 
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
-      <h1>
-          Mm
-      </h1>
-      <Divider />
-      <List>
-        {nav}
-      </List>
-      <Divider />
+      {/* <div className={classes.toolbar} /> */}
       <SelectComparison user={props.user} handleRadioClick={props.handleRadioClick}/>
       <SelectCountry 
         handleCountryClick={props.handleCountryClick}
@@ -159,7 +139,7 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Mmmilk
+            Mmmilk {nav}
           </Typography>
         </Toolbar>
       </AppBar>
