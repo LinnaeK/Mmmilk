@@ -4,10 +4,12 @@ const BASE_URL = '/api/charts/'
 
 export default {
     index,
-    create
+    create,
+    deleteOne
 }
 
 function index() {
+  console.log('in index')
     const options = {
       method: 'GET',
       headers: {
@@ -15,6 +17,18 @@ function index() {
       }
     };
     return fetch(BASE_URL, options).then(res => res.json());
+  }
+
+function deleteOne(_id) {
+  console.log('in delete', `${BASE_URL}${_id}`)
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'Bearer ' + tokenService.getToken()
+      },
+      body: {_id: _id}
+    };
+    return fetch(`${BASE_URL}${_id}`, options).then(res => res.json());
   }
   
   function create(chartDetails) {
@@ -29,3 +43,4 @@ function index() {
     };
     return fetch(BASE_URL, options).then(res => res.json());
   }
+

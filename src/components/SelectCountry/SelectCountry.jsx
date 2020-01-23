@@ -38,19 +38,6 @@ const MenuProps = {
     },
 };
 
-const names = [
-    'United States',
-    'Canada',
-    'England',
-    'Chile',
-    'Egypt',
-    'Brazil',
-    'Japan',
-    'Congo',
-    'Mexico',
-    'Romania'
-]
-
 function getStyles(name, personName, theme) {
     return {
         fontWeight:

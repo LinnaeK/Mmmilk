@@ -8,6 +8,7 @@ router.post('/', checkAuth, chartsCtrl.create),
 router.delete('/:id', checkAuth, chartsCtrl.delete)
 
 function checkAuth(req, res, next) {
+  console.log('inAuth')
     if (req.user) return next();
     return res.status(401).json({msg: 'Not Authorized'});
   }

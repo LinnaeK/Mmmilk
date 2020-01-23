@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import SelectComparison from '../SelectComparison/SelectComparison'
 import SelectCountry from '../SelectCountry/SelectCountry'
 import SelectAgeGroup from '../SelectAgeGroup/SelectAgeGroup'
+import SavedCharts from '../SavedCharts/SavedCharts'
 import Chart from '../Chart/Chart'
 import Buttons from '../Buttons/Buttons'
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,6 +22,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
+import LoginPage from '../LoginPage/LoginPage'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import SignupPage from '../../pages/SignupPage/SignupPage';
 
 const drawerWidth = 240;
 
@@ -72,8 +76,11 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
     let nav = props.user ?
     <span>
         <span>{`Welcome, ${props.user.name}`} </span>
-        <Link to='/saved-charts' className='NavBar-link' onClick={props.handleLinkClick}>
+        <Link to='/savedcharts' className='NavBar-link' onClick={props.handleSavedChartsClick}>
             {'Saved Charts'}
+        </Link>
+        <Link to='/' className='NavBar-link'>
+            {'Create Chart'}
         </Link>
         <Link to = '' className='NavBar-link' onClick={props.handleLogout}>
             {'Log Out'}
@@ -122,7 +129,7 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
     </div>
   );
 
-  
+  console.log('in the route:', props.savedCharts)
 
   return (
     <div className={classes.root}>
@@ -139,7 +146,10 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Mmmilk {nav}
+          <Link to='/' className='NavBar-link'>
+            Mmmilk 
+          </Link>
+            {nav}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -174,10 +184,38 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
           </Drawer>
         </Hidden>
       </nav>
-      <main className={classes.content}>
+        <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Chart chartData={props.chartData}/>
-      </main>
+      <Switch>
+        <Route exact path='/' render={() =>
+            <Chart 
+            chartData={props.chartData}
+            age={props.age}
+            country={props.country}
+            />
+        }/>
+        <Route exact path='/savedcharts' render={() =>
+            <SavedCharts 
+            savedCharts={props.savedCharts}
+            rawSavedCharts={props.rawSavedCharts}
+            handleDelete={props.handleDelete}
+            />
+        }/>
+      <Route exact path='/signup' render={({ history }) =>
+          <SignupPage
+            history = {history}
+            handleSignupOrLogin={props.handleSignupOrLogin}
+          />
+        }/>
+        <Route exact path='/login' render={({ history }) =>
+          <LoginPage
+            history={history}
+            handleSignupOrLogin={props.handleSignupOrLogin}
+          />
+        }/>
+        </Switch>
+        </main>
     </div>
+
   );
 }

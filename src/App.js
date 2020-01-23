@@ -27,7 +27,9 @@ class App extends Component {
       everBF: false,
       eZeroToFive: false,
       pZeroToFive: false,
-      chartData: ''
+      chartData: '',
+      savedCharts:[],
+      rawSavedCharts: []
     }
   }
 
@@ -207,6 +209,29 @@ class App extends Component {
     this.setState({user: userService.getUser()});
   }
 
+  handleSavedChartsClick = async() => {
+    console.log('ready to ask for historical data')
+    let viewCharts = await chartService.index()
+    console.log('viewCharts', viewCharts)
+    let savedCharts = []
+    for(let i = 0; i<viewCharts.length; i++){
+      let savedData = await dataService.index(viewCharts[i].comparisonByItem, viewCharts[i].country, viewCharts[i].indicators)
+      savedCharts.push(savedData)
+    }
+    console.log("me got clicked", viewCharts)
+    this.setState({
+      savedCharts:savedCharts,
+      rawSavedCharts: viewCharts
+    })
+  }
+
+  handleDelete = async(id) => {
+    console.log('inside handleDelete', this.state.savedCharts, this.state.rawSavedCharts[id]._id)
+    let deletedChart = await chartService.deleteOne(this.state.rawSavedCharts[id]._id)
+    console.log(deletedChart)
+    this.handleSavedChartsClick()
+  }
+
   handleLogout = () => {
     userService.logout();
     this.setState({ user: null });
@@ -215,14 +240,17 @@ class App extends Component {
   render(){
     return(
       <div>
-        <Switch>
-          <Route exact path='/' render={() =>
+        {/* <Switch>
+          <Route exact path='/' render={() => */}
           <ResponsiveDrawer 
             user={this.state.user}
+            savedCharts = {this.state.savedCharts}
+            rawSavedCharts = {this.state.rawSavedCharts}
             countryMessage={this.state.countryMessage} 
             ageMessage={this.state.ageMessage} 
             isEnabled={this.state.isEnabled}
             handleResetClick={this.handleResetClick}
+            handleDelete={this.handleDelete}
             handleLogout={this.handleLogout} 
             handleRadioClick={this.handleRadioClick}
             handleCountryClick={this.handleCountryClick}
@@ -231,6 +259,7 @@ class App extends Component {
             handleSaveClick={this.handleSaveClick}
             handleChange={this.handleChange}
             handleChangeMultiple={this.handleChangeMultiple}
+            handleSavedChartsClick={this.handleSavedChartsClick}
             twelveToFifteen={this.state.twelveToFifteen}
             twelveToTwentyThree={this.state.twelveToTwentyThree}
             twentyToTwentyThree={this.state.twentyToTwentyThree}
@@ -239,10 +268,11 @@ class App extends Component {
             pZeroToFive={this.state.pZeroToFive}
             multiple={this.state.multiple}
             country={this.state.country}
+            age={this.state.age}
             chartData={this.state.chartData}
             />  
         }/>
-        <Route exact path='/signup' render={({ history }) =>
+        {/* <Route exact path='/signup' render={({ history }) =>
           <SignupPage
             history = {history}
             handleSignupOrLogin={this.handleSignupOrLogin}
@@ -254,7 +284,7 @@ class App extends Component {
             handleSignupOrLogin={this.handleSignupOrLogin}
           />
         }/>
-        </Switch>
+        </Switch> */}
       </div>
     )
   }

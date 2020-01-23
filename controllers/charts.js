@@ -27,6 +27,7 @@ async function create(req, res){
 }
 
 async function index(req, res){
+    console.log('in controllers, index')
     try{
         charts = await Chart.find({})
         res.status(200).json(charts)
@@ -47,9 +48,9 @@ async function show(req, res){
 }
 
 async function deleteChart(req, res){
+    console.log('in controller at deleteChart', req.params.id)
     try{
-        let chart = await Chart.findOne({ _id: req.body_id })
-        let success = await removedItem.remove(chart)
+        let success = await Chart.findOneAndDelete({ _id: req.params.id })
         res.status(200).json(success)
     }catch(e){
         console.log(e)
