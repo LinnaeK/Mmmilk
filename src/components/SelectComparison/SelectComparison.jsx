@@ -14,6 +14,7 @@ SelectComparison.propTypes = {
 
 const useStyles = makeStyles({
     root: {
+      marginLeft: 10,
       '&:hover': {
         backgroundColor: 'transparent',
       },

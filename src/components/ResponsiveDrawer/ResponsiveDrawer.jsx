@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar';
+import './ResponsiveDrawer.css'
 import SelectComparison from '../SelectComparison/SelectComparison'
 import SelectCountry from '../SelectCountry/SelectCountry'
 import SelectAgeGroup from '../SelectAgeGroup/SelectAgeGroup'
@@ -74,30 +75,31 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
 
   
     let nav = props.user ?
-    <span>
+    <span className={'toRight'}>
         <span>{`Welcome, ${props.user.name}`} </span>
-        <Link to='/savedcharts' className='NavBar-link' onClick={props.handleSavedChartsClick}>
+        <Link to='/savedcharts' className='NavBar-link' style={{ textDecoration: 'none', marginRight: 20}} onClick={props.handleSavedChartsClick}>
             {'Saved Charts'}
         </Link>
-        <Link to='/' className='NavBar-link'>
+        <Link to='/' style={{ textDecoration: 'none', marginRight: 20 }} className='NavBar-link'>
             {'Create Chart'}
         </Link>
-        <Link to = '' className='NavBar-link' onClick={props.handleLogout}>
+        <Link to = '' className='NavBar-link' style={{ textDecoration: 'none', marginRight: 20}} onClick={props.handleLogout}>
             {'Log Out'}
         </Link>
     </span>
     :
     <span>
-        <Link to='/login' className='NavBar-link'>
+        <Link to='/login' style={{ textDecoration: 'none', marginRight: 20}} className='NavBar-link text'>
         {'Log In'}
         </Link>
-        <Link to='/signup' className='NavBar-link'>
+        <Link to='/signup' style={{ textDecoration: 'none', marginRight: 20}} className='NavBar-link'>
             {'Sign Up'}
         </Link>
     </span>
 
 
   const drawer = (
+
     <div>
       {/* <div className={classes.toolbar} /> */}
       <SelectComparison user={props.user} handleRadioClick={props.handleRadioClick}/>
@@ -127,6 +129,7 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
         handleSaveClick={props.handleSaveClick}
         />
     </div>
+
   );
 
   console.log('in the route:', props.savedCharts)
@@ -135,7 +138,7 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
+        <Toolbar >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -146,8 +149,8 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-          <Link to='/' className='NavBar-link'>
-            Mmmilk 
+          <Link to='/' className='NavBar-link' style={{ textDecoration: 'none', marginRight: 250}}>
+            Mama's Milk 
           </Link>
             {nav}
           </Typography>
@@ -180,6 +183,7 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
             variant="permanent"
             open
           >
+
             {drawer}
           </Drawer>
         </Hidden>

@@ -16,14 +16,14 @@ export default function ButtonSizes(props) {
   
     return (
       <div>
+        <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={props.handleChartClick}>
+            Create Chart 
+        </Button>
         <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={props.handleResetClick}>
             Reset
         </Button>
         <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={props.handleSaveClick}>
             Save 
-        </Button>
-        <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={props.handleChartClick}>
-            Create Chart 
         </Button>
     </div>
     )

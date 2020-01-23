@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
+import FormLabel from '@material-ui/core/FormLabel';
 
 
 const useStyles = makeStyles(theme => ({
@@ -134,9 +135,10 @@ SelectCountry.propTypes = {
     return (
         <div>
            <FormControl className={classes.formControl} >
-            <InputLabel shrink htmlFor="select-multiple-native" name="country">
+            {/* <InputLabel shrink htmlFor="select-multiple-native" name="country">
             Countries
-            </InputLabel>
+            </InputLabel> */}
+            <FormLabel component="legend">Countries</FormLabel>
             <FormHelperText>{props.countryMessage}</FormHelperText>
             <Select
                 multiple
