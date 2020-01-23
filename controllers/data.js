@@ -1,4 +1,5 @@
 let MilkData = require('../models/data.js')
+let fun = "poop"
 
 module.exports = {
     index,
