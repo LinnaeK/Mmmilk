@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Legend } from 'recharts';
 
-
-// import React, { Component } from 'react';
-// import {
-//   BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-// } from 'recharts';
 class Chart extends Component { 
     
     render(){
@@ -58,10 +53,9 @@ class Chart extends Component {
             SEN: 'Senegal',
             OMN: 'Oman'
      }
-        console.log('rendered chart component')
+
         let dataKeys = []
         let renderLineChart
-        console.log("in chart" , this.props.chartData)
         {if(this.props.chartData&&this.props.chartData!==[]){
             dataKeys = []
             for(const entry in this.props.chartData[0]){

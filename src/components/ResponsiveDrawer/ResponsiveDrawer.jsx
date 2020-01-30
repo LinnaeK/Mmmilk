@@ -207,13 +207,13 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
         }/>
       <Route exact path='/signup' render={({ history }) =>
           <SignupPage
-            history = {history}
+            history = {props.history}
             handleSignupOrLogin={props.handleSignupOrLogin}
           />
         }/>
         <Route exact path='/login' render={({ history }) =>
           <LoginPage
-            history={history}
+            history={props.history}
             handleSignupOrLogin={props.handleSignupOrLogin}
           />
         }/>

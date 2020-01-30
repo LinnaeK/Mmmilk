@@ -3,56 +3,28 @@ let fun = "poop"
 
 module.exports = {
     index,
-    // create,
-    // show, 
-    // delete: deleteChart
 }
-
-// important aggregation code:
-// // aggregate( [ { $group : { _id : "$item" } } ] )
-// let countries = await MilkData.aggregate([{$group:{_id:"$REF_AREA"}}])
-
-// IndicatorsCodes = [
-//    - {'NT_BF_CBF_12_23':'12-23' },
-//     {'NT_BF_EIBF':'Early Initiation' },
-//    - {'NT_BF_EBF':'Ever Breastfed' },
-//    - {'NT_BF_PRED_BF': 'Predominantly Breastfed 0-5'},
-//    - {'NT_BF_CBF_12_15': '12-15'},
-//    - {'NT_BF_EXBF': 'Exclusviely Breastfed 0-5'},
-//    - {'NT_BF_CBF_20_23': '20-23' }
-//   ]
 
 async function index(req, res){
     try{
-        // console.log(indArr)
-        console.log(req.headers.country)
-        console.log(req.headers.comparisoncategory)
         if(req.headers.comparisoncategory==="Country"){
-            console.log('in index', req.headers.comparisoncategory)
             let indArr = req.headers.indicators
             indArr=indArr.split(",")
-            console.log("in if statement")
             let response = await getCountryData(req.headers.country, indArr)
-            console.log('I got me a: ', response)
             res.json(response)
         }else{
-            console.log("in the else statement!!")
             let ctryArr = req.headers.country
             ctryArr = ctryArr.split(",")
-            console.log('getting ready to run getAgeData: ', req.headers.indicators, ctryArr)
             let response = await getAgeData(req.headers.indicators, ctryArr)
-            console.log(response)
             res.json(response)
         }
     }catch(e){
-        console.log(e)
         res.json(e)
     }
 }
 
 async function getPerYear(comparison, subCat, yearAvgs){
     subCatData = await MilkData.find({REF_AREA:comparison,INDICATOR:subCat})
-    console.log(subCatData, 'subCatData')
             let byYears= {}
             for(let i = 0; i<subCatData.length; i++){
                 if(byYears[subCatData[i].TIME_PERIOD]){
@@ -72,7 +44,6 @@ async function getPerYear(comparison, subCat, yearAvgs){
                 yearAvgs[year][subCat]=byYears[year].obs_value/byYears[year].obs_times
                 yearAvgs[year]["year"]=year
             }
-    console.log('yearAvgs', yearAvgs)
     return yearAvgs
 }
 

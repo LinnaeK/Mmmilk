@@ -9,36 +9,34 @@ import chartService from './utils/chartService';
 
 import ResponsiveDrawer from './components/ResponsiveDrawer/ResponsiveDrawer';
 
-function App {
-      const [user, setUser] = useState(userService.getUser())
-      const [comparisonByItem, useComparison]= useState('Country'),
-      const [country, useCountry] = useState([]
-      const [multiple, useMultiple] = useState(false
-      const [countryMessage, useCountryMessage]= useState("(select one)"),,
-      const [age, useAge] = useState([]),
-      const [isEnabled, useIsEnabled] = useState(true),
-      const [ageMessage, useAgeMessage] = useState("(select up to three)"),
-      const [checkboxes, setCheckboxes] = useState({
-        twelveToFifteen : false,
-        twelveToTwentyThree : false,
-        twentyToTwentyThree : false,
-        everBF: false,
-        eZeroToFive : false,
-        pZeroToFive : false,
-
-      })
-      const [chartData, useChartDate] = useState(''),
-      const [savedCharts, useSavedCharts] = useState([]),
-      const [rawSavedCharts, useRawSavedCharts] = useState([]),
-  
-  
-  const handleChange = name => event => {
-    setCheckboxes({
-      ...checkboxes,
-      [name] : event.target.checked
-    })
+class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      user: userService.getUser(),
+      comparisonByItem: 'Country',
+      country:[],
+      multiple: false,
+      countryMessage: "(select one)",
+      age:[],
+      isEnabled:true,
+      ageMessage:"(select up to three)",
+      twelveToFifteen: false,
+      twelveToTwentyThree: false,
+      twentyToTwentyThree: false,
+      everBF: false,
+      eZeroToFive: false,
+      pZeroToFive: false,
+      chartData: '',
+      savedCharts:[],
+      rawSavedCharts: []
+    }
   }
 
+
+  handleChange = name => event => {
+      this.setState({[name]: event.target.checked });
+  };
 
   handleRadioClick = (e) => {
     e.persist()
