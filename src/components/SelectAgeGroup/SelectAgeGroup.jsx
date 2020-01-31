@@ -33,48 +33,55 @@ export default function CheckboxesGroup(props) {
 
 //   const { twelveToFifteen, twelveToTwentyThree, twentyToTwentyThree, everBF, eZeroToFive, pZeroToFive } = state; 
 //   const error = [gilad, jason, antoine].filter(v => v).length !== 2;
-    console.log('test', props.pZeroToFive, props.isEnabled)
+    
   return (
     <div className={classes.root}>
+    {console.log('in select age group', props.checkboxes)}
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Age Ranges</FormLabel>
         <FormGroup>
         <FormHelperText>{props.ageMessage}</FormHelperText>
           <FormControlLabel
-            disabled={!props.isEnabled&&!props.eZeroToFive}
-            control={<Checkbox checked={props.eZeroToFive} onChange={props.handleChange('eZeroToFive')} value="NT_BF_EXBF" onClick={props.handleAgeClick} />}
+            disabled={!props.isEnabled&&!props.checkboxes.NT_BF_EXBF}
+            control={<Checkbox checked={props.checkboxes.NT_BF_EXBF}  value="NT_BF_EXBF" onClick={props.handleAgeClick} onChange={props.handleAgeClick}/>}
+            // onChange={props.handleChange('eZeroToFive')}
             label="Exclusively breastfed 0-5 months"
           />
           <FormControlLabel
-            disabled={!props.isEnabled&&!props.pZeroToFive}
-            control={<Checkbox checked={props.pZeroToFive} onChange={props.handleChange('pZeroToFive')} value="NT_BF_PRED_BF" onClick={props.handleAgeClick} />}
+            disabled={!props.isEnabled&&!props.checkboxes.NT_BF_PRED_BF}
+            control={<Checkbox checked={props.checkboxes.NT_BF_PRED_BF}  value="NT_BF_PRED_BF" onClick={props.handleAgeClick} />}
+            // onChange={props.handleChange('pZeroToFive')}
             label="Predonimantly breastfed 0-5 months"
           />
           <FormControlLabel
-            disabled={!props.isEnabled&&!props.twelveToFifteen}
+            disabled={!props.isEnabled&&!props.checkboxes.NT_BF_CBF_12_15}
             control={
-              <Checkbox checked={props.twelveToFifteen} onChange={props.handleChange('twelveToFifteen')} value="NT_BF_CBF_12_15" onClick={props.handleAgeClick} />
+              <Checkbox checked={props.checkboxes.NT_BF_CBF_12_15} value="NT_BF_CBF_12_15" onClick={props.handleAgeClick} />
+              // onChange={props.handleChange('twelveToFifteen')} 
             }
             label="12-15 months"
           />
           <FormControlLabel
-            disabled={!props.isEnabled&&!props.twelveToTwentyThree}
+            disabled={!props.isEnabled&&!props.checkboxes.NT_BF_CBF_12_23}
             control={
-              <Checkbox checked={props.twelveToTwentyThree} onChange={props.handleChange('twelveToTwentyThree')} value="NT_BF_CBF_12_23" onClick={props.handleAgeClick} />
+              <Checkbox checked={props.checkboxes.NT_BF_CBF_12_23}  value="NT_BF_CBF_12_23" onClick={props.handleAgeClick} />
+              // onChange={props.handleChange('twelveToTwentyThree')}
             }
             label="12-23 months"
           />
           <FormControlLabel
-            disabled={!props.isEnabled&&!props.twentyToTwentyThree}
+            disabled={!props.isEnabled&&!props.checkboxes.NT_BF_CBF_20_23}
             control={
-              <Checkbox checked={props.twentyToTwentyThree} onChange={props.handleChange('twentyToTwentyThree')} value="NT_BF_CBF_20_23" onClick={props.handleAgeClick} />
+              <Checkbox checked={props.checkboxes.NT_BF_CBF_20_23}  value="NT_BF_CBF_20_23" onClick={props.handleAgeClick} />
+              // onChange={props.handleChange('twentyToTwentyThree')}
             }
             label="20-23 months"
           />
           <FormControlLabel
-            disabled={!props.isEnabled&&!props.everBF}
+            disabled={!props.isEnabled&&!props.checkboxes.NT_BF_EBF}
             control={
-              <Checkbox checked={props.everBF} onChange={props.handleChange('everBF')} value="NT_BF_EBF" onClick={props.handleAgeClick} />
+              <Checkbox checked={props.checkboxes.NT_BF_EBF} value="NT_BF_EBF" onClick={props.handleAgeClick} />
+              // onChange={props.handleChange('everBF')} 
             }
             label="Breastfed at least once"
           />

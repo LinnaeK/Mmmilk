@@ -56,6 +56,7 @@ class Chart extends Component {
 
         let dataKeys = []
         let renderLineChart
+        console.log("in chart", this.props.chartData)
         {if(this.props.chartData&&this.props.chartData!==[]){
             dataKeys = []
             for(const entry in this.props.chartData[0]){
