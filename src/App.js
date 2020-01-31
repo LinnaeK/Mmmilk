@@ -18,7 +18,7 @@ function App {
       const [age, useAge] = useState([]),
       const [isEnabled, useIsEnabled] = useState(true),
       const [ageMessage, useAgeMessage] = useState("(select up to three)"),
-      const [checkboxes, setCheckboxes] = useState({
+      const [checkboxes, useCheckboxes] = useState({
         twelveToFifteen : false,
         twelveToTwentyThree : false,
         twentyToTwentyThree : false,
@@ -31,153 +31,101 @@ function App {
       const [savedCharts, useSavedCharts] = useState([]),
       const [rawSavedCharts, useRawSavedCharts] = useState([]),
   
-  
-  const handleChange = name => event => {
-    setCheckboxes({
-      ...checkboxes,
-      [name] : event.target.checked
-    })
-  }
-
-
-  handleRadioClick = (e) => {
-    e.persist()
-    this.setState({
-      comparisonByItem:e.target.value,
-      age:[],
-      country:[],
-      isEnabled:true,
-      twelveToFifteen: false,
-      twelveToTwentyThree: false,
-      twentyToTwentyThree: false,
-      everBF: false,
-      eZeroToFive: false,
-      pZeroToFive: false,
-    })
-    if(e.target.value==="Country"){
-      this.setState({
-        countryMessage: "(select one)",
-        ageMessage: "(select up to three)",
-        multiple:false
-      })
-    }else{
-      this.setState({
-          countryMessage: "(select up to three)",
-          ageMessage: "(select one)",
-          multiple:true 
-        })
-    }
-  }
-
-  handleResetClick = () => {
-    this.setState({
-      age:[],
-      country:[],
-      isEnabled:true,
-      twelveToFifteen: false,
-      twelveToTwentyThree: false,
-      twentyToTwentyThree: false,
-      everBF: false,
-      eZeroToFive: false,
-      pZeroToFive: false,
-    })
-  }
-  // handleCountryClick = (e) => {
-  //   e.persist()
-  //   if(this.state.comparisonByItem==='Country'){
-  //     console.log('ran country')
-  //     this.setState({country:[e.target.value]})
-  //   }else{
-  //     console.log('ran this')
-  //     let currentCountrySelection = [...this.state.country]
-  //     if(this.state.country.some((country)=>{return e.target.value===country})){
-  //       let filteredCountries = this.state.country.filter((country)=>{return country!=e.target.value})
-  //       this.setState({country: filteredCountries})
-  //     }else{
-  //       if(currentCountrySelection.length>2){
-  //         this.setState({countryMessage: false})
-  //       }else{
-  //         currentCountrySelection.push(e.target.value)
-  //         console.log(currentCountrySelection)
-  //         this.setState({country: currentCountrySelection})
-  //       }
-  //     }
-  //   }
+  //Not sure if this function is needed
+  // const handleChange = name => event => {
+  //   setCheckboxes({
+  //     ...checkboxes,
+  //     [name] : event.target.checked
+  //   })
   // }
 
-  handleAgeClick = (e) => {
+
+  const handleRadioClick = (e) => {
     e.persist()
-    if(this.state.comparisonByItem==='Age'){
-      console.log('run inside age')
-      if(this.state.age.some((age)=>{return e.target.value===age})){
-        let filteredAge = this.state.age.filter((age)=>{return age!=e.target.value})
-        this.setState({
-          age: filteredAge,
-          isEnabled:true,
-        })
-      }else{
-      console.log('ran age')
-      this.setState({
-        age:[e.target.value],
-        isEnabled:false
-      })
+    useComparison(e.target.value)
+    handleResetClick()
+    if(e.target.value==="Country"){
+// might need to useMultiple(true) here.
+// would rather put a terenary/boolean in SelectCountry if needed
+      useCountryMessage("(select one")
+      useAgeMessage("(select up to three)")
+    }else{
+      useAgeMessage("(select one")
+      useCountryMessage("(select up to three)")
     }
+  }
+
+  const handleResetClick = () => {
+    useAge([])
+    useCountry([])
+    useIsEnabled(true)
+    useCheckboxes({
+      twelveToFifteen: false,
+      twelveToTwentyThree: false,
+      twentyToTwentyThree: false,
+      everBF: false,
+      eZeroToFive: false,
+      pZeroToFive: false,
+    })
+  }
+  
+
+  const handleAgeClick = (e) => {
+    e.persist()
+    if(comparisonByItem==='Age'){
+      console.log('run inside age')
+      if(age.some((age)=>{return e.target.value===age})){
+        let filteredAge = age.filter((age)=>{return age!=e.target.value})
+          useAge(filteredAge)
+          useIsEnabled(true)
+      }else{
+        console.log('ran age')
+        useAge([e.target.value])
+        useIsEnabled(false)
+      }
     }else{
       console.log('ran this')
-      let currentAgeSelection = [...this.state.age]
-      if(this.state.age.some((age)=>{return e.target.value===age})){
-        let filteredAge = this.state.age.filter((age)=>{return age!=e.target.value})
-        this.setState({
-          age: filteredAge,
-          isEnabled:true,
-        })
+      let currentAgeSelection = [...age]
+      if(age.some((age)=>{return e.target.value===age})){
+        let filteredAge = age.filter((age)=>{return age!=e.target.value})
+        useAge(filteredAge)
+        useIsEnabled(true)
       }else{
         if(currentAgeSelection.length<2){
           console.log('ran inside')
           currentAgeSelection.push(e.target.value)
-          this.setState({
-            age: currentAgeSelection, 
-            isEnabled:true
-          })
+          useAge(currentAgeSelection) 
+          useIsEnabled(true)
           console.log('almost out')
         }else if(currentAgeSelection.length===2){
           currentAgeSelection.push(e.target.value)
-          this.setState({
-            ageMessage: "Max three age ranges", 
-            isEnabled:false,
-            age: currentAgeSelection
-           })
-           console.log(this.state.age)
+          useAgeMessage("Max three age ranges") 
+          useIsEnabled(false)
+          useAge(currentAgeSelection)
         }
       }
     }
   }
 
 
-  handleChangeMultiple = event => {
+  const handleChangeMultiple = event => {
     console.log('in handleChangeMultiple')
-    const value = [...this.state.country];
+    const value = [...country];
     const { options } = event.target;
     for (let i = 0, l = options.length; i < l; i += 1) {
       if (options[i].selected) {
         if(value.some((v)=>{return v===options[i].value })){
           console.log('in some')
           value.splice(value.indexOf(options[i].value), 1)
-          this.setState({country:value})
+          useCountry(value)
         }else{
-          if(this.state.comparisonByItem==="Country"){
-            this.setState({
-              country:[options[i].value]
-            })
-          }else if(this.state.country.length<3){
+          if(comparisonByItem==="Country"){
+            useCountry([options[i].value])
+          }else if(country.length<3){
             value.push(options[i].value);
-            this.setState({
-              country: value
-            })
-            if(this.state.country.length===2){
-              this.setState({
-                countryMessage:"Max three countries"
-              })
+            useCountry(value)
+            if(country.length===2){
+              useCountryMessage("Max three countries")
             }
           }
         }
@@ -185,33 +133,33 @@ function App {
     }
   };
 
-  handleChartData = (data) => {
-    this.setState({chartData:data})
-    console.log(this.state.chartData)
+  const handleChartData = (data) => {
+    useChartData(data)
+    console.log(chartData)
   }
 
-  handleChartClick = async () => {
+  const handleChartClick = async () => {
     console.log('chart clicked')
-    let newData = await dataService.index(this.state.comparisonByItem, this.state.country, this.state.age)
-    this.handleChartData(newData)
-    console.log("set in state", this.state.chartData)
+    let newData = await dataService.index(comparisonByItem, country, age)
+    handleChartData(newData)
+    console.log("set in state", chartData)
   }
 
-  handleSaveClick = async() => {
+  const handleSaveClick = async() => {
     let chartDetails = {
-      comparisonByItem: this.state.comparisonByItem,
-      country: this.state.country,
-      indicators: this.state.age
+      comparisonByItem: comparisonByItem,
+      country: country,
+      indicators: age
     }
     let saveData = await chartService.create(chartDetails)
     console.log('savedData: ', saveData)
   }
   
-  handleSignupOrLogin = () => {
-    this.setState({user: userService.getUser()});
+  const handleSignupOrLogin = () => {
+    useUser(userService.getUser())
   }
 
-  handleSavedChartsClick = async() => {
+  const handleSavedChartsClick = async() => {
     console.log('ready to ask for historical data')
     let viewCharts = await chartService.index()
     console.log('viewCharts', viewCharts)
@@ -221,77 +169,73 @@ function App {
       savedCharts.push(savedData)
     }
     console.log("me got clicked", viewCharts)
-    this.setState({
-      savedCharts:savedCharts,
-      rawSavedCharts: viewCharts
-    })
+    useSavedCharts(savedCharts)
+    useRawSavedCharts(viewCharts)
   }
 
-  handleDelete = async(id) => {
-    console.log('inside handleDelete', this.state.savedCharts, this.state.rawSavedCharts[id]._id)
-    let deletedChart = await chartService.deleteOne(this.state.rawSavedCharts[id]._id)
+  const handleDelete = async(id) => {
+    console.log('inside handleDelete', savedCharts, rawSavedCharts[id]._id)
+    let deletedChart = await chartService.deleteOne(rawSavedCharts[id]._id)
     console.log(deletedChart)
-    this.handleSavedChartsClick()
+    handleSavedChartsClick()
   }
 
-  handleLogout = () => {
-    userService.logout();
-    this.setState({ user: null });
+  const handleLogout = () => {
+    userService.logout()
+    useUser(null)
   }
 
-  render(){
-    return(
-      <div>
-        {/* <Switch>
-          <Route exact path='/' render={() => */}
-          <ResponsiveDrawer 
-            user={this.state.user}
-            savedCharts = {this.state.savedCharts}
-            rawSavedCharts = {this.state.rawSavedCharts}
-            countryMessage={this.state.countryMessage} 
-            ageMessage={this.state.ageMessage} 
-            isEnabled={this.state.isEnabled}
-            handleResetClick={this.handleResetClick}
-            handleDelete={this.handleDelete}
-            handleLogout={this.handleLogout} 
-            handleRadioClick={this.handleRadioClick}
-            handleCountryClick={this.handleCountryClick}
-            handleAgeClick={this.handleAgeClick}
-            handleChartClick={this.handleChartClick}
-            handleSaveClick={this.handleSaveClick}
-            handleChange={this.handleChange}
-            handleChangeMultiple={this.handleChangeMultiple}
-            handleSavedChartsClick={this.handleSavedChartsClick}
-            twelveToFifteen={this.state.twelveToFifteen}
-            twelveToTwentyThree={this.state.twelveToTwentyThree}
-            twentyToTwentyThree={this.state.twentyToTwentyThree}
-            everBF={this.state.everBF}
-            eZeroToFive={this.state.eZeroToFive}
-            pZeroToFive={this.state.pZeroToFive}
-            multiple={this.state.multiple}
-            country={this.state.country}
-            age={this.state.age}
-            chartData={this.state.chartData}
-            handleSignupOrLogin={this.handleSignupOrLogin}
-            history={history}
-            />  
-        }/>
+  return(
+    <div>
+      {/* <Switch>
+        <Route exact path='/' render={() => */}
+        <ResponsiveDrawer 
+          user={user}
+          savedCharts = {savedCharts}
+          rawSavedCharts = {rawSavedCharts}
+          countryMessage={countryMessage} 
+          ageMessage={ageMessage} 
+          isEnabled={isEnabled}
+          handleResetClick={handleResetClick}
+          handleDelete={handleDelete}
+          handleLogout={handleLogout} 
+          handleRadioClick={handleRadioClick}
+          handleCountryClick={handleCountryClick}
+          handleAgeClick={handleAgeClick}
+          handleChartClick={handleChartClick}
+          handleSaveClick={handleSaveClick}
+          handleChange={handleChange}
+          handleChangeMultiple={handleChangeMultiple}
+          handleSavedChartsClick={handleSavedChartsClick}
+          twelveToFifteen={twelveToFifteen}
+          twelveToTwentyThree={twelveToTwentyThree}
+          twentyToTwentyThree={twentyToTwentyThree}
+          everBF={everBF}
+          eZeroToFive={eZeroToFive}
+          pZeroToFive={pZeroToFive}
+          multiple={multiple}
+          country={country}
+          age={age}
+          chartData={chartData}
+          handleSignupOrLogin={handleSignupOrLogin}
+          history={history}
+          />  
+      }/>
         {/* <Route exact path='/signup' render={({ history }) =>
           <SignupPage
             history = {history}
-            handleSignupOrLogin={this.handleSignupOrLogin}
+            handleSignupOrLogin={handleSignupOrLogin}
           />
         }/>
         <Route exact path='/login' render={({ history }) =>
           <LoginPage
             history={history}
-            handleSignupOrLogin={this.handleSignupOrLogin}
+            handleSignupOrLogin={handleSignupOrLogin}
           />
         }/>
         </Switch> */}
       </div>
     )
-  }
 }
 
 export default App;
