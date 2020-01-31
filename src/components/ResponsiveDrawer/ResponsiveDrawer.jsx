@@ -220,6 +220,5 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
         </Switch>
         </main>
     </div>
-
   );
 }
