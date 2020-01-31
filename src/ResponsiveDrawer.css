@@ -1,0 +1,9 @@
+.NavBar-link{
+    color: #ffffff;
+    text-decoration: 'none';
+    margin-right: 50;
+}
+
+.toRight{
+    align-items: right;
+}
