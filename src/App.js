@@ -24,21 +24,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import ResponsiveDrawer from './components/ResponsiveDrawer/ResponsiveDrawer';
 
 
 export default function App (props: ResponsiveDrawerProps){
-    const drawerWidth = 240;
-
     const { container } = props;
     const classes = useStyles();
     const theme = useTheme();
@@ -52,13 +43,12 @@ export default function App (props: ResponsiveDrawerProps){
     const [isEnabled, useIsEnabled] = useState(true)
     const [ageMessage, useAgeMessage] = useState("(select up to three)")
     const [checkboxes, useCheckboxes] = useState({
-      twelveToFifteen : false,
-      twelveToTwentyThree : false,
-      twentyToTwentyThree : false,
-      everBF: false,
-      eZeroToFive : false,
-      pZeroToFive : false,
-
+      NT_BF_EXBF: false,
+      NT_BF_PRED_BF: false,
+      NT_BF_CBF_12_15: false,
+      NT_BF_CBF_12_23: false,
+      NT_BF_CBF_20_23: false,
+      NT_BF_EBF: false,
     })
     const [chartData, useChartData] = useState('')
     const [savedCharts, useSavedCharts] = useState([])
@@ -85,14 +75,15 @@ export default function App (props: ResponsiveDrawerProps){
     if(e.target.value==="Country"){
 // might need to useMultiple(true) here.
 // would rather put a terenary/boolean in SelectCountry if needed
-      countryMsg= "(select one"
+      countryMsg= "(select one)"
       ageMsg="(select up to three)"
     }else{
       countryMsg="(select up to three)"
-      ageMsg="(select one"
+      ageMsg="(select one)"
     }
     useCountryMessage(countryMsg)
     useAgeMessage(ageMsg)
+    useHandleResetClick()
   }
 
   const useHandleResetClick = () => {
@@ -100,12 +91,12 @@ export default function App (props: ResponsiveDrawerProps){
     useCountry([])
     useIsEnabled(true)
     useCheckboxes({
-      twelveToFifteen: false,
-      twelveToTwentyThree: false,
-      twentyToTwentyThree: false,
-      everBF: false,
-      eZeroToFive: false,
-      pZeroToFive: false,
+      NT_BF_EXB: false,
+      NT_BF_PRED_BF: false,
+      NT_BF_CBF_12_15: false,
+      NT_BF_CBF_12_23: false,
+      NT_BF_CBF_20_23: false,
+      NT_BF_EBF: false,
     })
   }
   
@@ -139,9 +130,14 @@ export default function App (props: ResponsiveDrawerProps){
         }
       }
     }
+    console.log('checking checkboxes', e.target.value, checkboxes, checkboxes["NT_BF_EXBF"], checkboxes[e.target.value])
     useAge(ages)
     useAgeMessage(ageMsg)
     useIsEnabled(enabled)
+    useCheckboxes({
+      ...checkboxes,
+      [e.target.value]:!checkboxes[e.target.value]
+    })
   }
 
 
@@ -347,21 +343,21 @@ const drawer = (
         }/>
         <Route exact path='/savedcharts' render={() =>
             <SavedCharts 
-            savedCharts={props.savedCharts}
-            rawSavedCharts={props.rawSavedCharts}
-            handleDelete={props.handleDelete}
+            savedCharts={savedCharts}
+            rawSavedCharts={rawSavedCharts}
+            handleDelete={useHandleDelete}
             />
         }/>
       <Route exact path='/signup' render={({ history }) =>
           <SignupPage
-            history = {props.history}
-            handleSignupOrLogin={props.handleSignupOrLogin}
+            history = {history}
+            handleSignupOrLogin={handleSignupOrLogin}
           />
         }/>
         <Route exact path='/login' render={({ history }) =>
           <LoginPage
-            history={props.history}
-            handleSignupOrLogin={props.handleSignupOrLogin}
+            history={history}
+            handleSignupOrLogin={handleSignupOrLogin}
           />
         }/>
         </Switch>
