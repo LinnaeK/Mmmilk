@@ -80,7 +80,7 @@ export default function App (props){
 
   const useHandleResetClick = () => {
     useAge([])
-    useCountry([])
+    // useCountry([])
     useIsEnabled(true)
     useCheckboxes({
       NT_BF_EXB: false,
@@ -163,11 +163,13 @@ export default function App (props){
   };
 
   const useHandleChartClick = async () => {
-    console.log('chart clicked')
+    // console.log('chart clicked')
+    console.log("rawSavedCharts", rawSavedCharts)
+    console.log("savedCharts", savedCharts)
     let newData = await dataService.index(comparisonByItem, country, age)
     useChartData(newData)
-    console.log('newData', newData)
-    console.log("set in state", chartData)
+    // console.log('newData', newData)
+    // console.log("set in state", chartData)
   }
 
   const useHandleSaveClick = async() => {
@@ -185,6 +187,9 @@ export default function App (props){
   }
 
   const useHandleSavedChartsClick = async() => {
+
+    // THIS RUNS
+
     console.log('ready to ask for historical data')
     let viewCharts = await chartService.index()
     console.log('viewCharts', viewCharts)
@@ -194,8 +199,9 @@ export default function App (props){
       savedCharts.push(savedData)
     }
     console.log("me got clicked", viewCharts)
-    useSavedCharts(savedCharts)
     useRawSavedCharts(viewCharts)
+    useSavedCharts(savedCharts)
+    console.log('useHandleSavedChartsClick', rawSavedCharts)
   }
 
   const useHandleDelete = async(id) => {
@@ -219,12 +225,6 @@ export default function App (props){
   return(
     <div className={classes.root}>
       <CssBaseline />
-      <MilkNav 
-      user={user}
-      useHandleSavedChartsClick={useHandleSavedChartsClick}
-      handleDrawerToggle={handleDrawerToggle}
-      handleLogout={handleLogout}
-      />
       <SideBar 
       mobileOpen = {mobileOpen}
       handleDrawerToggle = {handleDrawerToggle}
@@ -241,6 +241,12 @@ export default function App (props){
       useHandleChartClick={useHandleChartClick}
       useHandleResetClick={useHandleResetClick}
       useHandleSaveClick={useHandleSaveClick}
+      />
+      <MilkNav 
+      user={user}
+      useHandleSavedChartsClick={useHandleSavedChartsClick}
+      handleDrawerToggle={handleDrawerToggle}
+      handleLogout={handleLogout}
       />
       <main className={classes.content}>
       <div className={classes.toolbar} />

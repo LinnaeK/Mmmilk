@@ -4,8 +4,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 function SavedCharts(props) {
     console.log("in saved charts", props.savedCharts)
+    console.log("in saved charts(raw)", props.rawSavedCharts)
     let display 
-    {if(props.savedCharts){
+    {if(props.savedCharts!==[]){
 
         display = props.savedCharts.map((chart, idx)=>(
             <>

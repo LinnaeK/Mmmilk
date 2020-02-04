@@ -73,7 +73,7 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
     setMobileOpen(!mobileOpen);
   };
 
-  
+
     let nav = props.user ?
     <span className={'toRight'}>
         <span>{`Welcome, ${props.user.name}`} </span>
@@ -98,10 +98,9 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
     </span>
 
 
-  const drawer = (
-
+  let drawer = props.user ? 
     <div>
-      {/* <div className={classes.toolbar} /> */}
+      {/* <div className={classes.toolbar} />
       <SelectComparison user={props.user} handleRadioClick={props.handleRadioClick}/>
       <SelectCountry 
         handleCountryClick={props.handleCountryClick}
@@ -127,12 +126,14 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
         handleChartClick={props.handleChartClick}
         handleResetClick={props.handleResetClick}
         handleSaveClick={props.handleSaveClick}
-        />
+        /> */}
+        failed
     </div>
+    :
+    <div></div>
 
-  );
 
-  console.log('in the route:', props.savedCharts)
+  console.log('in the responsive drawer:', props.user)
 
   return (
     <div className={classes.root}>

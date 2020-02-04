@@ -15,7 +15,7 @@ export default function SideBar(props) {
     const theme = useTheme();
     const drawerWidth = 240;
 
-    const drawer = (
+    const drawer = props.user ?
 
         <div>
           {/* <div className={classes.toolbar} /> */}
@@ -41,7 +41,8 @@ export default function SideBar(props) {
             handleSaveClick={props.useHandleSaveClick}
             />
         </div>
-    )
+    :
+    <div></div>
 
     return (
         <div>

@@ -7,11 +7,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom'
 import useStyles from '../../AppStyle'
+import './milkNav.css'
+
 
 function MilkNav(props) {
     const { container } = props;
     const classes = useStyles();
-    const handleSavedChartsClick = props.useHandleSavedChartsClick()
+    const handleSavedChartsClick = props.useHandleSavedChartsClick
 
     let nav = props.user ?
         <span className={'toRight'}>
@@ -50,10 +52,12 @@ function MilkNav(props) {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" noWrap>
-                <Link to='/' className='NavBar-link' style={{ textDecoration: 'none', marginRight: 250}}>
-                    Mama's Milk 
-                </Link>
-                    {nav}
+                <div class="navContainer">
+                    <Link to='/' className='NavBar-link' style={{ textDecoration: 'none', marginLeft: 200, marginRight: 250}}>
+                        Mama's Milk 
+                    </Link>
+                        {nav}
+                </div>
                 </Typography>
                 </Toolbar>
             </AppBar> 
