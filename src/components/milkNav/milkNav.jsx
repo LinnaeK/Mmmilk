@@ -17,23 +17,23 @@ function MilkNav(props) {
 
     let nav = props.user ?
         <span className={'toRight'}>
-            <span>{`Welcome, ${props.user.name}`} </span>
+            <span style={{fontStyle: 'italic'}}>{`Welcome, ${props.user.name}`} </span>
             <Link to='/savedcharts' className='NavBar-link' style={{ textDecoration: 'none', marginRight: 20}} onClick={handleSavedChartsClick}>
                 {'Saved Charts'}
             </Link>
-            <Link to='/' style={{ textDecoration: 'none', marginRight: 20 }} className='NavBar-link'>
+            <Link to='/' style={{ textDecoration: 'none'}} className='NavBar-link'>
                 {'Create Chart'}
             </Link>
-            <Link to = '' className='NavBar-link' style={{ textDecoration: 'none', marginRight: 20}} onClick={props.handleLogout}>
+            <Link to = '' className='NavBar-link' style={{ textDecoration: 'none'}} onClick={props.handleLogout}>
                 {'Log Out'}
             </Link>
         </span>
         :
         <span>
-            <Link to='/login' style={{ textDecoration: 'none', marginRight: 20}} className='NavBar-link text'>
+            <Link to='/login' style={{ textDecoration: 'none'}} className='NavBar-link text'>
             {'Log In'}
             </Link>
-            <Link to='/signup' style={{ textDecoration: 'none', marginRight: 20}} className='NavBar-link'>
+            <Link to='/signup' style={{ textDecoration: 'none'}} className='NavBar-link'>
                 {'Sign Up'}
             </Link>
         </span>
@@ -53,7 +53,7 @@ function MilkNav(props) {
                 </IconButton>
                 <Typography variant="h6" noWrap>
                 <div class="navContainer">
-                    <Link to='/' className='NavBar-link' style={{ textDecoration: 'none', marginLeft: 200, marginRight: 250}}>
+                    <Link to='/' className='NavBar-link' style={{ textDecoration: 'none'}}>
                         Mama's Milk 
                     </Link>
                         {nav}

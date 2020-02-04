@@ -1,4 +1,13 @@
 .navContainer{
     display: flex;
-    flex-align: 
+    margin: 0 0 0 240px;
+    width: 75vw;
+    justify-content: space-between;
+    /* align-items: stretch; */
+}
+
+.toRight{
+    display: flex;
+    width: 55vw;
+    justify-content: space-around;
 }
