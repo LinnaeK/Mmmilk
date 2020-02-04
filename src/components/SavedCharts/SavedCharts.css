@@ -1,0 +1,6 @@
+.savedCharts{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 660px;
+}
