@@ -10,6 +10,7 @@ import './App.css'
 import useStyles from './AppStyle'
 import './ResponsiveDrawer.css'
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
+import useGetData from './components/hooks/hooks'
 
 import LoginPage from './components/LoginPage/LoginPage'
 import SignupPage from './pages/SignupPage/SignupPage';
@@ -43,8 +44,8 @@ export default function App (props){
       NT_BF_EBF: false,
     })
     const [chartData, useChartData] = useState('')
-    const [savedCharts, useSavedCharts] = useState([])
-    const [rawSavedCharts, useRawSavedCharts] = useState([])
+    const [savedCharts, rawSavedCharts, loading] = useGetData(user)
+    
 
   //Not sure if this function is needed
   // const useHandleChange = name => event => {
@@ -179,7 +180,7 @@ export default function App (props){
       indicators: age
     }
     let saveData = await chartService.create(chartDetails)
-    useHandleSavedChartsClick()
+    // useHandleSavedChartsClick()
     console.log('savedData: ', saveData)
   }
   
@@ -188,25 +189,25 @@ export default function App (props){
   }
     
 
-  const useHandleSavedChartsClick = async() => {
+  // const useHandleSavedChartsClick = async() => {
 
     // THIS RUNS
 
-    console.log('ready to ask for historical data')
-    let viewCharts = await chartService.index()
-    console.log('viewCharts', viewCharts)
-    let savedCharts = []
-    for(let i = 0; i<viewCharts.length; i++){
-      let savedData = await dataService.index(viewCharts[i].comparisonByItem, viewCharts[i].country, viewCharts[i].indicators)
-      savedCharts.push(savedData)
-      console.log('in for loop')
-    }
-    console.log("me got clicked", viewCharts)
-    useRawSavedCharts(viewCharts)
-    console.log('useHandleSavedChartsClick')
-    useSavedCharts(savedCharts)
-    console.log('after useSavedCharts')
-  }
+  //   console.log('ready to ask for historical data')
+  //   let viewCharts = await chartService.index()
+  //   console.log('viewCharts', viewCharts)
+  //   let savedCharts = []
+  //   for(let i = 0; i<viewCharts.length; i++){
+  //     let savedData = await dataService.index(viewCharts[i].comparisonByItem, viewCharts[i].country, viewCharts[i].indicators)
+  //     savedCharts.push(savedData)
+  //     console.log('in for loop')
+  //   }
+  //   console.log("me got clicked", viewCharts)
+  //   useRawSavedCharts(viewCharts)
+  //   // console.log('useHandleSavedChartsClick')
+  //   useSavedCharts(savedCharts)
+  //   console.log('after useSavedCharts')
+  // }
 
   // useEffect(useHandleSavedChartsClick())
 
@@ -216,25 +217,17 @@ export default function App (props){
     console.log(deletedChart)
     let updateRaw = rawSavedCharts
     updateRaw.splice(id, 1)
-    useRawSavedCharts(updateRaw)
+    // useRawSavedCharts(updateRaw)
     let updateSave = savedCharts
     updateSave.splice(id, 1)
-    useSavedCharts(updateSave)
-    useHandleSavedChartsClick()
+    // useSavedCharts(updateSave)
+    // useHandleSavedChartsClick()
   }
 
   const handleLogout = () => {
     userService.logout()
     setUser(null)
   }
-
-    
-
-
-  useEffect(()=>{
-    console.log(props.history)
-  })
-
 
   return(
     <div className={classes.root}>
@@ -259,7 +252,7 @@ export default function App (props){
       />
       <MilkNav 
       user={user}
-      useHandleSavedChartsClick={useHandleSavedChartsClick}
+      // useHandleSavedChartsClick={useHandleSavedChartsClick}
       handleDrawerToggle={handleDrawerToggle}
       handleLogout={handleLogout}
       />
