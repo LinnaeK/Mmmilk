@@ -8,6 +8,7 @@ import SelectComparison from '../../components/SelectComparison/SelectComparison
 import SelectCountry from '../../components/SelectCountry/SelectCountry'
 import SelectAgeGroup from '../../components/SelectAgeGroup/SelectAgeGroup'
 import Buttons from '../../components/Buttons/Buttons'
+import { useEffect } from 'react';
 
 export default function SideBar(props) {
     const { container } = props;
@@ -15,7 +16,12 @@ export default function SideBar(props) {
     const theme = useTheme();
     const drawerWidth = 240;
 
-    const drawer = props.user ?
+    useEffect(()=>{
+        console.log(props.history.location.pathname)
+    })
+
+
+    const drawer = props.user && !(props.history.location.pathname==='/savedcharts') ?
 
         <div>
           {/* <div className={classes.toolbar} /> */}
