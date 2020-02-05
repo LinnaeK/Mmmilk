@@ -231,7 +231,9 @@ export default function App (props){
     
 
 
-
+  useEffect(()=>{
+    console.log(props.history)
+  })
 
 
   return(
@@ -253,6 +255,7 @@ export default function App (props){
       useHandleChartClick={useHandleChartClick}
       useHandleResetClick={useHandleResetClick}
       useHandleSaveClick={useHandleSaveClick}
+      history={props.history}
       />
       <MilkNav 
       user={user}
