@@ -29,7 +29,7 @@ async function create(req, res){
 async function index(req, res){
     console.log('in controllers, index')
     try{
-        charts = await Chart.find({})
+        charts = await Chart.find({user:req.user})
         res.status(200).json(charts)
     }catch(e){
         console.log(e)
