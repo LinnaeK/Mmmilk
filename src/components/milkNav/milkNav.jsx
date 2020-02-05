@@ -16,7 +16,7 @@ function MilkNav(props) {
     const handleSavedChartsClick = props.useHandleSavedChartsClick
 
     let nav = props.user ?
-        <span className={'toRight'}>
+        <span className={'toRight'} >
             <span style={{fontStyle: 'italic'}}>{`Welcome, ${props.user.name}`} </span>
             <Link to='/savedcharts' className='NavBar-link' style={{ textDecoration: 'none', marginRight: 20}} onClick={handleSavedChartsClick}>
                 {'Saved Charts'}
@@ -29,7 +29,7 @@ function MilkNav(props) {
             </Link>
         </span>
         :
-        <span>
+        <span className="toRight" style={{width: 400}}>
             <Link to='/login' style={{ textDecoration: 'none'}} className='NavBar-link text'>
             {'Log In'}
             </Link>
