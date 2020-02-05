@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
@@ -179,12 +179,14 @@ export default function App (props){
       indicators: age
     }
     let saveData = await chartService.create(chartDetails)
+    useHandleSavedChartsClick()
     console.log('savedData: ', saveData)
   }
   
   const handleSignupOrLogin = () => {
     setUser(userService.getUser())
   }
+    
 
   const useHandleSavedChartsClick = async() => {
 
@@ -200,9 +202,12 @@ export default function App (props){
     }
     console.log("me got clicked", viewCharts)
     useRawSavedCharts(viewCharts)
+    console.log('useHandleSavedChartsClick')
     useSavedCharts(savedCharts)
-    console.log('useHandleSavedChartsClick', rawSavedCharts)
+    console.log('after useSavedCharts')
   }
+
+  // useEffect(useHandleSavedChartsClick())
 
   const useHandleDelete = async(id) => {
     console.log('inside handleDelete', savedCharts, rawSavedCharts[id]._id)
