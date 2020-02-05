@@ -199,6 +199,7 @@ export default function App (props){
     for(let i = 0; i<viewCharts.length; i++){
       let savedData = await dataService.index(viewCharts[i].comparisonByItem, viewCharts[i].country, viewCharts[i].indicators)
       savedCharts.push(savedData)
+      console.log('in for loop')
     }
     console.log("me got clicked", viewCharts)
     useRawSavedCharts(viewCharts)
@@ -213,6 +214,12 @@ export default function App (props){
     console.log('inside handleDelete', savedCharts, rawSavedCharts[id]._id)
     let deletedChart = await chartService.deleteOne(rawSavedCharts[id]._id)
     console.log(deletedChart)
+    let updateRaw = rawSavedCharts
+    updateRaw.splice(id, 1)
+    useRawSavedCharts(updateRaw)
+    let updateSave = savedCharts
+    updateSave.splice(id, 1)
+    useSavedCharts(updateSave)
     useHandleSavedChartsClick()
   }
 
