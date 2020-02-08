@@ -15,7 +15,7 @@ function SavedCharts(props) {
                 age={props.rawSavedCharts[idx].indicators}
                 country={props.rawSavedCharts[idx].country}
                 />
-                <DeleteIcon onClick={()=>{props.handleDelete(idx)}}/>
+                <DeleteIcon style={{cursor: 'pointer'}} onClick={()=>{props.handleDelete(idx)}}/>
             </div>
         ))
     }else{
