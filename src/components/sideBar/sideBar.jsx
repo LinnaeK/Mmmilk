@@ -1,7 +1,7 @@
 import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import useStyles from '../../AppStyle'
+import useStyles from '../App/AppStyle'
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
 
 import SelectComparison from '../../components/SelectComparison/SelectComparison'
