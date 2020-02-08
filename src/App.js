@@ -93,6 +93,7 @@ export default function App (props){
       NT_BF_CBF_20_23: false,
       NT_BF_EBF: false,
     })
+    useChartData('')
   }
   
 
@@ -105,8 +106,10 @@ export default function App (props){
                 savedCharts.push(savedData)
                 console.log('in for loop')
             }
+            viewCharts = viewCharts.reverse()
             console.log("me got clicked", viewCharts)
             setRawSavedCharts(viewCharts)
+            savedCharts = savedCharts.reverse()
             console.log('useHandleSavedChartsClick')
             setSavedCharts(savedCharts)
             console.log('after useSavedCharts')
@@ -204,6 +207,7 @@ export default function App (props){
     }
     let saveData = await chartService.create(chartDetails)
     fetchData()
+    props.history.push('/savedcharts')
     // useHandleSavedChartsClick()
     console.log('savedData: ', saveData)
   }
