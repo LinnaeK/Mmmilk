@@ -13,7 +13,7 @@ import LoginPage from '../LoginPage/LoginPage'
 import SignupPage from '../../pages/SignupPage/SignupPage';
 import SavedCharts from '../SavedCharts/SavedCharts'
 import Chart from '../Chart/Chart'
-import SideBar from '../sideBar/sideBar'
+import SideBar from '../SelectionBar/SelectionBar'
 import MilkNav from '../milkNav/milkNav'
 import CssBaseline from '@material-ui/core/CssBaseline';
 
