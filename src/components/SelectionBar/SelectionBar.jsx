@@ -4,10 +4,10 @@ import Hidden from '@material-ui/core/Hidden';
 import useStyles from '../App/AppStyle'
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
 
-import SelectComparison from '../SelectComparison/SelectComparison.js'
+import SelectComparison from '../SelectComparison/SelectComparison.jsx'
 import SelectCountry from '../SelectCountry/SelectCountry.jsx'
-import SelectAgeGroup from '../SelectAgeGroup/SelectAgeGroup.js'
-import Buttons from '../Buttons/Buttons.js'
+import SelectAgeGroup from '../SelectAgeGroup/SelectAgeGroup.jsx'
+import Buttons from '../Buttons/Buttons.jsx'
 import { useEffect } from 'react';
 
 export default function SideBar(props) {
