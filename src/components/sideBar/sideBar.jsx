@@ -4,10 +4,10 @@ import Hidden from '@material-ui/core/Hidden';
 import useStyles from '../App/AppStyle'
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
 
-import SelectComparison from '../../components/SelectComparison/SelectComparison'
-import SelectCountry from '../../components/SelectCountry/SelectCountry'
-import SelectAgeGroup from '../../components/SelectAgeGroup/SelectAgeGroup'
-import Buttons from '../../components/Buttons/Buttons'
+import SelectComparison from '../../components/SelectComparison/SelectComparison.jsx'
+import SelectCountry from '../../components/SelectCountry/SelectCountry.jsx'
+import SelectAgeGroup from '../../components/SelectAgeGroup/SelectAgeGroup.jsx'
+import Buttons from '../../components/Buttons/Buttons.jsx'
 import { useEffect } from 'react';
 
 export default function SideBar(props) {
@@ -24,7 +24,6 @@ export default function SideBar(props) {
     const drawer = props.user && !(props.history.location.pathname==='/savedcharts') ?
 
         <div>
-          {/* <div className={classes.toolbar} /> */}
           <SelectComparison user={props.user} handleRadioClick={props.useHandleRadioClick}/>
           <SelectCountry 
             // handleCountryClick={useHandleCountryClick}

@@ -161,4 +161,4 @@ SelectCountry.propTypes = {
         </FormControl> 
         </div>
     )};
-            
+let nameOfVar1, nameOfVar2, nameOfVar3

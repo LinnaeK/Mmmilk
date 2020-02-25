@@ -1,6 +1,5 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,7 +10,6 @@ import './milkNav.css'
 
 
 function MilkNav(props) {
-    const { container } = props;
     const classes = useStyles();
     const handleSavedChartsClick = props.useHandleSavedChartsClick
 

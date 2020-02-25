@@ -56,7 +56,7 @@ class Chart extends Component {
 
         let dataKeys = []
         let renderLineChart
-        console.log("in chart", this.props.chartData)
+
         {if(this.props.chartData&&this.props.chartData!==[]){
             dataKeys = []
             for(const entry in this.props.chartData[0]){
@@ -71,9 +71,7 @@ class Chart extends Component {
             }else{
                 compared = IndicatorsCodes[this.props.age[0]]
             }
-        
-            console.log('dataKeys', dataKeys)
-            // renderLineChart = <h1>made it through</h1>
+
         renderLineChart = (
             <>
             <h1>Comparison of {compared}</h1>
@@ -88,12 +86,19 @@ class Chart extends Component {
             </LineChart>
             </>
         )
-        }else{
+        }else if (this.props.user){
             renderLineChart = (
                 <h1> Please select options from the left bar to create your chart </h1>
             )
+        }else{
+            renderLineChart = (
+                <>
+                    <h1> Welcome to Mama's Milk! </h1>
+                    <h3>Sign in to create your own breastfeeding statistic charts </h3>
+                </>
+            ) 
         }}
-        // console.log(renderLineChart)
+ 
         return(
             <div>
                     {renderLineChart}
@@ -102,50 +107,4 @@ class Chart extends Component {
     }
   }
 
-//   export default Chart
-
-
-// export default class Chart extends Component {
-
-//   render() {
-//       let BarChart
-//  {if(this.props.chartData){
-//     let dataKeys = []
-//     let renderLineChart
-//     console.log("in chart" , this.props.chartData[0])
-//     dataKeys = []
-//     for(const entry in this.props.chartData[0]){
-//         if(entry!=='year'){
-//             dataKeys.push(entry)
-//         }
-//         }
-
-//      BarChart = 
-//         <BarChart
-//           width={500}
-//           height={300}
-//           data={this.props.chartData}
-//           margin={{
-//             top: 5, right: 30, left: 20, bottom: 5,
-//           }}
-//         >
-//           <CartesianGrid strokeDasharray="3 3" />
-//           <XAxis dataKey="timePeriod" />
-//           <YAxis />
-//           <Tooltip />
-//           <Legend />
-//           <Bar dataKey={dataKeys[0]} fill="#8884d8" />
-//           <Bar dataKey={dataKeys[1]} fill="#82ca9d" />
-//           <Bar dataKey={dataKeys[2]} fill="#82cd9a" />
-//         </BarChart>
-//       }else{
-//           BarChart = <h1>select options from left</h1>
-//       }}
-//     return (
-//         <div>
-//             {BarChart}
-//         </div>
-//     );
-//   }
-// }
 export default Chart

@@ -20,9 +20,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 export default function App (props){
+  //I would move state as low as you possibly
     const classes = useStyles();
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [user, setUser] = useState(userService.getUser())
+    const [user, setUser] = useState(userService.getUser()) //put in context or redux
     const [comparisonByItem, useComparison]= useState('Country')
     const [country, useCountry] = useState([])
     const [multiple, useMultiple] = useState(false)
@@ -37,7 +38,7 @@ export default function App (props){
       NT_BF_CBF_12_23: false,
       NT_BF_CBF_20_23: false,
       NT_BF_EBF: false,
-    })
+    }) // a good example of where you can use useReducer to simplify
     const [chartData, useChartData] = useState('')
     const [savedCharts, setSavedCharts] = useState([])
     const [rawSavedCharts, setRawSavedCharts] = useState([])
@@ -58,7 +59,7 @@ const handleLogout = () => {
   async function fetchData(){
     let viewCharts = await chartService.index()
     let savedCharts = []
-    for(let i = 0; i<viewCharts.length; i++){
+    for(let i = 0; i<viewCharts.length; i++){ // refactor to a .map
         let savedData = await dataService.index(viewCharts[i].comparisonByItem, viewCharts[i].country, viewCharts[i].indicators)
         savedCharts.push(savedData)
     }
@@ -128,7 +129,8 @@ const handleLogout = () => {
       [e.target.value]:!checkboxes[e.target.value]
     })
   }
-
+ //break into smaller parts
+ 
   const useHandleChangeMultiple = event => {
     const value = [...country];
     const { options } = event.target;
@@ -235,6 +237,7 @@ const handleLogout = () => {
             chartData={chartData}
             age={age}
             country={country}
+            user={user}
             />
         }/>
         <Route exact path='/savedcharts' render={() =>
